@@ -1,0 +1,25 @@
+npm init
+npm install commander
+
+sudo apt update
+sudo apt install nodejs
+sudo apt install npm
+
+npm install --save-dev eslint //Для установки как зависимости разработки:
+
+Пропишите в начале файла brain-games.js шебанг с правильно указанным интерпретатором (node) —
+#!/usr/bin/env node.
+При запуске исполняемого файла такая запись позволит выполнить код, который в нём расположен.
+
+"bin": {
+  "brain-games": "bin/brain-games.js"
+}
+
+chmod +x bin/gendiff.js
+
+
+npm publish --dry-run /// Для отладки публикации
+npm link /// Для глобальной установки пакета из локальной директории
+
+npx eslint .
+npx eslint . --fix
