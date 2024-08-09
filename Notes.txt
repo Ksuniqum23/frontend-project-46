@@ -23,3 +23,14 @@ npm link /// Для глобальной установки пакета из л
 
 npx eslint .
 npx eslint . --fix
+
+============INSTALL ESLINT=====
+npm install --save-dev eslint
+npm install --save-dev eslint-plugin-import // problems in version
+
+npm install --save-dev eslint@^8
+npm install --save-dev eslint-plugin-import
+
+npx install-peers
+npm install install-peers //success
+npm install --save-dev eslint-config-airbnb-base eslint-plugin-import
