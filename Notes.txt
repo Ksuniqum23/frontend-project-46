@@ -34,3 +34,18 @@ npm install --save-dev eslint-plugin-import
 npx install-peers
 npm install install-peers //success
 npm install --save-dev eslint-config-airbnb-base eslint-plugin-import
+
+
+===FROM TESTS===
+"scripts": {
+    "test": "jest"
+  },
+
+new file .npmrc and add to there:
+
+node-options=--no-warnongs --experimental-vm-modules
+
+
+===ABOUT PROJECT===
+https://youtu.be/CwdpRb6maDs?si=qycIxU4iHayGwzNa&t=5799
+
