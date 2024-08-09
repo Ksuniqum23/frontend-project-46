@@ -49,3 +49,6 @@ node-options=--no-warnongs --experimental-vm-modules
 ===ABOUT PROJECT===
 https://youtu.be/CwdpRb6maDs?si=qycIxU4iHayGwzNa&t=5799
 
+what is "fs module"??
+https://www.perplexity.ai/search/chto-takoe-modul-fs-https-node-5ev50vSaSJWIhEl_1UtHfw
+

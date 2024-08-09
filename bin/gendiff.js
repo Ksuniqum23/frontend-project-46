@@ -15,8 +15,9 @@ if (program.opts().help) {
   program.help();
 }
 
+// import sum
 // program.action((path1, path2) => {
 //   console.log(sum(path1, path2, program.opts().format));
 // })
-
+// https://youtu.be/_Oe4B6OKPvY?si=OYQ3DR3aU-kDF4Af&t=3142
 // https://www.perplexity.ai/search/dlia-chego-nuzhen-etot-proekt-seONF3MiRD6C1hGWvAzwtg
