@@ -56,5 +56,6 @@ https://www.perplexity.ai/search/chto-takoe-modul-fs-https-node-5ev50vSaSJWIhEl_
 
 ======Иду по вебинару===
 npm install --save-dev jest - для работы тестов
+npm install js-yaml - для работы с файлами jml
 
 

@@ -15,6 +15,10 @@ if (program.opts().help) {
   program.help();
 }
 
+import {gendiff} from "../index.js";
+gendiff('__fixtures__/file1.json', '__fixtures__/file2.json');
+
+
 // import sum
 // program.action((path1, path2) => {
 //   console.log(sum(path1, path2, program.opts().format));

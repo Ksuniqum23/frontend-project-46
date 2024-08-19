@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^12.1.0",
-    "install-peers": "^1.0.4"
+    "install-peers": "^1.0.4",
+    "js-yaml": "^4.1.0"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
