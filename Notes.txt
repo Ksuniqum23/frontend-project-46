@@ -16,6 +16,7 @@ npm install --save-dev eslint //Для установки как зависим�
 }
 
 chmod +x bin/gendiff.js
+chmod +x bin/index.js
 
 
 npm publish --dry-run /// Для отладки публикации
@@ -51,4 +52,9 @@ https://youtu.be/CwdpRb6maDs?si=qycIxU4iHayGwzNa&t=5799
 
 what is "fs module"??
 https://www.perplexity.ai/search/chto-takoe-modul-fs-https-node-5ev50vSaSJWIhEl_1UtHfw
+
+
+======Иду по вебинару===
+npm install --save-dev jest - для работы тестов
+
 

@@ -1,3 +1,5 @@
-import genDiff from "./src/gendiff.js";
+import sum from "./src/index.js";
 
-export default genDiff ;
+import gendiff from "./src/gendiff.js";
+
+export { sum, gendiff };

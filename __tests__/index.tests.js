@@ -1,3 +1,5 @@
-import genDiff from "../index.js";
+import sum from "../index.js";
 
-test
+test('testSum', () => {
+    expect(sum(1, 2)).toBe(3);
+})

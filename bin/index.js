@@ -1,21 +1,13 @@
 #!/usr/bin/env node
-import { Command } from 'commander';
+// import sum from "../index.js";
+//
+// // console.log(sum(1, 4));
 
-const program = new Command();
+import { Command } from "commander";
+import gendiff from "../index.js"; //подключила библиотеку для работы с консолью, через консоль запускать файл
 
-program
-    .name('gendiff')
-    .description('Compares two configuration files and shows a difference.')
-    .version('1.0.0')
-    .option('-h, --help', 'output usage information')
-    .option('-f, --format <type>', 'output format');
-program.parse(process.argv);
+const program = new Command(); //новый инстанс коммандера
 
-if (program.opts().help) {
-    program.help();
-}
-
-
-import genDiff from "../index.js";
-
-genDiff('__fixtures__/file1.json', '__fixtures__/file1.json');
+program.action((path1, path2) => {
+    console.log(gendiff(path1, path2, program.opts().format));
+})
