@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 
+import { gendiff } from '../index.js';
+
 const program = new Command();
 
 program
@@ -14,10 +16,7 @@ program.parse(process.argv);
 if (program.opts().help) {
   program.help();
 }
-
-import {gendiff} from "../index.js";
-gendiff('__fixtures__/file1.json', '__fixtures__/file2.json');
-
+gendiff('../__fixtures__/file1.json', '../__fixtures__/file2.json');
 
 // import sum
 // program.action((path1, path2) => {
