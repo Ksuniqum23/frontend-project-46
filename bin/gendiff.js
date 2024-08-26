@@ -1,22 +1,52 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 
-import { gendiff } from '../index.js';
+import genDiff  from '../index.js';
 
 const program = new Command();
 
+// program
+//   .command('<file1> <file2>')
+//   .name('gendiff')
+//   .description('Compares two configuration files and shows a difference.')
+//   .version('1.0.0')
+//   .option('-h, --help', 'output usage information')
+//   .option('-f, --format <type>', 'output format')
+//
+//   .action((path1, path2) => {
+//     try {
+//       genDiff(path1, path2);
+//     } catch (err) {
+//         console.error(`Ошибка: ${err.message}`);
+//     }
+// })
+// program.parse(process.argv);
+//
+// if (program.opts().help) {
+//   program.help();
+// }
+//
+//
+// ===v2===
+
 program
-  .name('gendiff')
-  .description('Compares two configuration files and shows a difference.')
-  .version('1.0.0')
-  .option('-h, --help', 'output usage information')
-  .option('-f, --format <type>', 'output format');
+    .command('gendiff <file1> <file2>')
+    .name('gendiff')
+    .description('Compares two configuration files and shows a difference.')
+    .version('1.0.0')
+    .option('-f, --format <type>', 'output format')
+    .action((path1, path2) => {
+        try {
+            genDiff(path1, path2);
+        } catch (err) {
+            console.error(`Ошибка: ${err.message}`);
+        }
+    });
+
+// Парсинг аргументов командной строки
 program.parse(process.argv);
 
-if (program.opts().help) {
-  program.help();
-}
-gendiff('../__fixtures__/file1.json', '../__fixtures__/file2.json');
+// gendiff('../__fixtures__/file1.json', '../__fixtures__/file2.json');
 
 // import sum
 // program.action((path1, path2) => {
