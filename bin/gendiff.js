@@ -11,10 +11,10 @@ const justDoIt = (file1, file2) => {
 program
 // .command('1 <file1> <file2>')
 // .name('gendiff')
-  .arguments('<file1> <file2>')
+  .arguments('<filepath1> <filepath2>')
   .description('Compares two configuration files and shows a difference.')
   .version('1.0.0')
-  .option('-f, --format <type>', 'output format')
+  .option('-f, --format <type>', 'output format', "stylish")
   .action(justDoIt);
 // .parse(process.argv);
 // .action((path1, path2) => {
