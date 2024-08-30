@@ -25,6 +25,17 @@ npm link /// Для глобальной установки пакета из л
 npx eslint .
 npx eslint . --fix
 
+asciinema rec test.cast
+exit
+asciinema upload test.cast
+
+gendiff -h
+gendiff __fixtures__/file1.json __fixtures__/file2.json
+gendiff ~/WebstormProjects/frontend-project-46/__fixtures__/file1.json __fixtures__/file2.json
+
+
+
+
 ============INSTALL ESLINT=====
 npm install --save-dev eslint
 npm install --save-dev eslint-plugin-import // problems in version
