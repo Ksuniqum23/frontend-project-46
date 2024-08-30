@@ -12,7 +12,8 @@
   "dependencies": {
     "commander": "^12.1.0",
     "install-peers": "^1.0.4",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
