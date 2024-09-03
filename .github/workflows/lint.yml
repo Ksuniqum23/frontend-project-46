@@ -6,5 +6,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: make lint
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run linter
+        uses: wearerequired/lint-action@v2
+        with:
+          linters: 'eslint'
