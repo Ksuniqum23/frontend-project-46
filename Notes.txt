@@ -57,6 +57,9 @@ new file .npmrc and add to there:
 
 node-options=--no-warnongs --experimental-vm-modules
 
+npm i --save-dev jest //установим jest +
+npx jest // запуск
+
 
 ===ABOUT PROJECT===
 https://youtu.be/CwdpRb6maDs?si=qycIxU4iHayGwzNa&t=5799

@@ -17,4 +17,4 @@ if (program.opts().help) {
   program.help();
 }
 
-genDiff('__fixtures__/file1.json', '__fixtures__/file1.json');
+genDiff('__fixtures__/Bob.json', '__fixtures__/Bob.json');

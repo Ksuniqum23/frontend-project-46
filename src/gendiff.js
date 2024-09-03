@@ -42,5 +42,6 @@ const genDiff = (filePath1, filePath2) => {
   const data2 = getData(fullPath2);
   const diffFile = differents(data1, data2);
   console.log(diffFile);
+  return diffFile;
 };
 export default genDiff;
