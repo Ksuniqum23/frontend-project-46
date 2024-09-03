@@ -11,7 +11,7 @@ const differents = (obj1, obj2) => {
   const obj1keys = Object.keys(obj1);
   const obj2keys = Object.keys(obj2);
   const resultKeys = _.union(obj1keys, obj2keys).sort();
-  let result = "{\n";
+  let result = '{\n';
   for (let i = 0; i < resultKeys.length; i += 1) {
     const key = resultKeys[i];
     if (Object.hasOwn(obj1, key) === true && Object.hasOwn(obj2, key) === true) {
@@ -31,7 +31,7 @@ const differents = (obj1, obj2) => {
       result += `  + ${key}: ${obj2[key]}\n`;
     }
   }
-  result += `}`;
+  result += '}';
   return result;
 };
 
