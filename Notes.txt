@@ -60,6 +60,8 @@ node-options=--no-warnongs --experimental-vm-modules
 npm i --save-dev jest //установим jest +
 npx jest // запуск
 
+npm test -- --watch //режим непрерывного тестирования, клевая штука
+
 
 ===ABOUT PROJECT===
 https://youtu.be/CwdpRb6maDs?si=qycIxU4iHayGwzNa&t=5799
