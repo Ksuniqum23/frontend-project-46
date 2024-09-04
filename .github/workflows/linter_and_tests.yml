@@ -24,6 +24,6 @@ jobs:
         run: npm ci
 
       - name: Set code coverage commit status 📫
-        run: npx jest --coverage set-gh-status
+        run: npx jest --coverage
         env:
           GITHUB_TOKEN: ${{ secrets.CC_TEST_REPORTER_ID }}
