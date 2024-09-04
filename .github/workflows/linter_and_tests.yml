@@ -23,5 +23,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm test
+      - name: Install Code Climate Test Reporter
+          run: |
+            curl -L https://github.com/codeclimate/test-reporter/releases/latest/download/codeclimate-test-reporter-linux-amd64 -o codeclimate-test-reporter
+            chmod +x codeclimate-test-reporter
+            mv codeclimate-test-reporter /usr/local/bin/
+
+            - name: Run tests with coverage
+              run: npm test -- --coverage
+
+            - name: Send coverage to Code Climate
+              env:
+                CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+              run: |
+                codeclimate-test-reporter format-coverage -o coverage/codeclimate.json coverage/
+                codeclimate-test-reporter upload-coverage coverage/codeclimate.json
