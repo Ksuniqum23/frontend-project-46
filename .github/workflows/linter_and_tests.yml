@@ -25,7 +25,7 @@ jobs:
 
       - name: Install Code Climate Test Reporter
           run: |
-            curl -L https://github.com/codeclimate/test-reporter/releases/latest/download/codeclimate-test-reporter-linux-amd64 -o codeclimate-test-reporter
+            npm -L https://github.com/codeclimate/test-reporter/releases/latest/download/codeclimate-test-reporter-linux-amd64 -o codeclimate-test-reporter
             chmod +x codeclimate-test-reporter
             mv codeclimate-test-reporter /usr/local/bin/
 
