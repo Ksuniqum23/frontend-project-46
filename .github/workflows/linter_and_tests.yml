@@ -1,4 +1,4 @@
-name: Linter
+name: Linter and tests
 
 on: push
 
@@ -13,3 +13,6 @@ jobs:
         uses: wearerequired/lint-action@v2
         with:
           linters: 'eslint'
+
+      - name: Run tests
+          run: npm test
