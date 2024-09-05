@@ -56,7 +56,7 @@ jobs:
         env:
          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-         coverageCommand: make test-coverage
+         coverageCommand: npx jest --coverage
          debug: true
 
 
@@ -82,19 +82,19 @@ jobs:
 #      - name: Checkout code
 #        uses: actions/checkout@v2
 #
-      - name: Run linter
-        uses: wearerequired/lint-action@v2
-        with:
-          linters: 'eslint'
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.x'
-          cache: 'npm' # Ускоряет повторные сборки
-
-      - name: Install dependencies
-        run: npm ci
+#      - name: Run linter
+#        uses: wearerequired/lint-action@v2
+#        with:
+#          linters: 'eslint'
+#
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '18.x'
+#          cache: 'npm' # Ускоряет повторные сборки
+#
+#      - name: Install dependencies
+#        run: npm ci
 #
 #      - name: Test & publish code coverage
 #       # Publish code coverage on Code Climate
