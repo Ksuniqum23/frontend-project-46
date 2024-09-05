@@ -31,6 +31,8 @@ asciinema upload test.cast
 
 gendiff -h
 gendiff __fixtures__/file1.json __fixtures__/file2.json
+gendiff __fixtures__/file1.yml __fixtures__/file2.yml
+
 gendiff ~/WebstormProjects/frontend-project-46/__fixtures__/file1.json __fixtures__/file2.json
 
 
@@ -58,7 +60,8 @@ new file .npmrc and add to there:
 node-options=--no-warnongs --experimental-vm-modules
 
 npm i --save-dev jest //установим jest +
-npx jest // запуск
+
+ // запуск
 npm update jest
 
 npx update coverage bandge
@@ -76,5 +79,11 @@ https://www.perplexity.ai/search/chto-takoe-modul-fs-https-node-5ev50vSaSJWIhEl_
 ======Иду по вебинару===
 npm install --save-dev jest - для работы тестов
 npm install js-yaml - для работы с файлами jml
+
+
+===6 step ====
+JS-YAML - YAML 1.2 parser
+
+npm install js-yaml
 
 

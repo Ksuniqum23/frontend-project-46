@@ -7,7 +7,7 @@ const getFullPath = (filePath) => path.resolve(process.cwd(), filePath);
 const extractFormat = (filePath) => path.extname(filePath).slice(1);
 const getData = (filePath) => parser(fs.readFileSync(filePath, 'utf-8'), extractFormat(filePath));
 
-const differents = (obj1, obj2) => {
+const difference = (obj1, obj2) => {
   const obj1keys = Object.keys(obj1);
   const obj2keys = Object.keys(obj2);
   const resultKeys = _.union(obj1keys, obj2keys).sort();
@@ -40,7 +40,7 @@ const genDiff = (filePath1, filePath2) => {
   const fullPath2 = getFullPath(filePath2);
   const data1 = getData(fullPath1);
   const data2 = getData(fullPath2);
-  const diffFile = differents(data1, data2);
+  const diffFile = difference(data1, data2);
   console.log(diffFile);
   return diffFile;
 };

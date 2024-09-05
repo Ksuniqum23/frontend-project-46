@@ -1,34 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<yml_catalog date="2024-08-19">
-<shop>
-<name>Мой интернет-магазин</name>
-<company>Моя компания</company>
-<url>http://www.myshop.com</url>
-
-<currencies>
-<currency id="RUR" rate="1"/>
-</currencies>
-
-<categories>
-<category id="1">Электроника</category>
-<category id="2">Одежда</category>
-</categories>
-
-<offers>
-<offer id="1" available="true">
-<name>Смартфон</name>
-<price>20000</price>
-<currencyId>RUR</currencyId>
-<categoryId>1</categoryId>
-<description>Современный смартфон с отличной камерой</description>
-</offer>
-<offer id="2" available="true">
-<name>Футболка</name>
-<price>1500</price>
-<currencyId>RUR</currencyId>
-<categoryId>2</categoryId>
-<description>Удобная хлопковая футболка</description>
-</offer>
-</offers>
-</shop>
-</yml_catalog>
+host: hexlet.io
+timeout: 50
+proxy: 123.234.53.22
+follow: false

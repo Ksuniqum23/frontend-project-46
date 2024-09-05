@@ -32,3 +32,16 @@ test('test2 genDiff', () => {
     // console.log('Expected:', fs.readFileSync(pathResultfile, 'utf8'));
     expect(response.trim()).toBe(fs.readFileSync(pathResultfile, 'utf8').trim());
 });
+
+test('test3 genDiff yml files', () => {
+    let path1file;
+    path1file = path.join(__dirname, '..', '__fixtures__', 'file1.yml');
+    let path2file;
+    path2file = path.join(__dirname, '..', '__fixtures__', 'file2.yml');
+    let pathResultfile;
+    pathResultfile = path.join(__dirname, '..', '__fixtures__', 'file1_2_result.txt');
+    const response = gendiff(path1file, path2file);
+    // console.log('Response:', response);
+    // console.log('Expected:', fs.readFileSync(pathResultfile, 'utf8'));
+    expect(response.trim()).toBe(fs.readFileSync(pathResultfile, 'utf8').trim());
+});
