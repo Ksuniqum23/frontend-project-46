@@ -23,7 +23,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Set code coverage commit status 📫
-        run: npx jest --coverage
-        env:
-          GITHUB_TOKEN: ${{ secrets.CC_TEST_REPORTER_ID }}
+#      - name: Set code coverage commit status 📫
+#        run: npx jest --coverage
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.CC_TEST_REPORTER_ID }}
+
+     - name: Test & publish code coverage
+       # Publish code coverage on Code Climate
+       # https://github.com/paambaati/codeclimate-action
+       uses: paambaati/codeclimate-action@v5.0.0
+       # Add Code Climate secret key
+       env:
+         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+       with:
+         coverageCommand: npx jest --coverage
+         debug: true
