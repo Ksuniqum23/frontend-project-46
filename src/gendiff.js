@@ -2,34 +2,74 @@ import path from 'path';
 import * as fs from 'fs';
 import _ from 'lodash';
 import parser from './parser.js';
+import stylishIter from "./formatters.js";
 
 const getFullPath = (filePath) => path.resolve(process.cwd(), filePath);
 const extractFormat = (filePath) => path.extname(filePath).slice(1);
 const getData = (filePath) => parser(fs.readFileSync(filePath, 'utf-8'), extractFormat(filePath));
 
-const difference = (obj1, obj2) => {
+const formatters = {
+  stylish: stylish;
+}
+const deepDiff = (key, value, formatter) => {
+
+}
+// const difference = (obj1, obj2) => {
+//   const obj1keys = Object.keys(obj1);
+//   const obj2keys = Object.keys(obj2);
+//   const resultKeys = _.union(obj1keys, obj2keys).sort();
+//   let result = '{\n';
+//   for (let i = 0; i < resultKeys.length; i += 1) {
+//     const key = resultKeys[i];
+//     if (Object.hasOwn(obj1, key) === true && Object.hasOwn(obj2, key) === true) {
+//       if (obj1[key] === obj2[key]) {
+//         result += `    ${key}: ${obj1[key]}\n`;
+//       } else {
+//         result += `  - ${key}: ${obj1[key]}\n`;
+//         result += `  + ${key}: ${obj2[key]}\n`;
+//       }
+//     }
+//
+//     if (Object.hasOwn(obj1, key) === true && Object.hasOwn(obj2, key) === false) {
+//       result += `  - ${key}: ${obj1[key]}\n`;
+//     }
+//
+//     if (Object.hasOwn(obj1, key) === false && Object.hasOwn(obj2, key) === true) {
+//       result += `  + ${key}: ${obj2[key]}\n`;
+//     }
+//   }
+//   result += '}';
+//   return result;
+// };
+
+const difference = (obj1, obj2, iter = 1) => {
+
   const obj1keys = Object.keys(obj1);
   const obj2keys = Object.keys(obj2);
   const resultKeys = _.union(obj1keys, obj2keys).sort();
-  let result = '{\n';
+  let result;
+  let status;
   for (let i = 0; i < resultKeys.length; i += 1) {
     const key = resultKeys[i];
-    if (Object.hasOwn(obj1, key) === true && Object.hasOwn(obj2, key) === true) {
-      if (obj1[key] === obj2[key]) {
-        result += `    ${key}: ${obj1[key]}\n`;
-      } else {
-        result += `  - ${key}: ${obj1[key]}\n`;
-        result += `  + ${key}: ${obj2[key]}\n`;
+    if (typeof obj1[key] === "object"  && obj1[key] !== null) {
+      iter += 1;
+      difference(obj1[key], obj2[key], iter);
+    } else {
+      if (Object.hasOwn(obj1, key) === true && Object.hasOwn(obj2, key) === true) {
+        if (obj1[key] === obj2[key]) {
+          status = 'equal';
+        } else {
+          status = 'different';
+        }
+      }
+      if (Object.hasOwn(obj1, key) === true && Object.hasOwn(obj2, key) === false) {
+        status = 'remove';
+      }
+      if (Object.hasOwn(obj1, key) === false && Object.hasOwn(obj2, key) === true) {
+        status = 'add';
       }
     }
-
-    if (Object.hasOwn(obj1, key) === true && Object.hasOwn(obj2, key) === false) {
-      result += `  - ${key}: ${obj1[key]}\n`;
-    }
-
-    if (Object.hasOwn(obj1, key) === false && Object.hasOwn(obj2, key) === true) {
-      result += `  + ${key}: ${obj2[key]}\n`;
-    }
+    result += stylishIter(key, obj1[key], obj2[key], status, iter);
   }
   result += '}';
   return result;
