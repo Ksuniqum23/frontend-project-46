@@ -2,7 +2,7 @@ import path from 'path';
 import * as fs from 'fs';
 import _ from 'lodash';
 import parser from './parser.js';
-import stylishIter from "./formatters.js";
+import stylish from "./formatters.js";
 
 const getFullPath = (filePath) => path.resolve(process.cwd(), filePath);
 const extractFormat = (filePath) => path.extname(filePath).slice(1);
@@ -61,7 +61,8 @@ const diff2 = (obj1, obj2) => {
       if (_.isEqual(obj1[key], obj2[key])) {
         status = 'equal';
       } else {
-        return diff2(obj1[key], obj2[key]);
+        status = 'deep';
+        return [key, diff2(obj1[key], obj2[key]), diff2(obj1[key], obj2[key]), status];
       }
     } else {
       if (obj1 && Object.hasOwn(obj1, key) && obj2 && Object.hasOwn(obj2, key)) {
@@ -131,7 +132,8 @@ const genDiff = (filePath1, filePath2) => {
   const data1 = getData(fullPath1);
   const data2 = getData(fullPath2);
   const diffFile = diff2(data1, data2);
-  console.log(diffFile);
-  return diffFile;
+  const formatting = stylish(diffFile);
+  // console.log(diffFile);
+  return formatting;
 };
 export default genDiff;

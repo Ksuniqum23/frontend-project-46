@@ -1,8 +1,10 @@
-const stylishIter = (key, value1, value2 = ``, resultDiff, iter = 1) => {
+const stylishIter = (key, value1, value2 = ``, status, iter = 1) => {
     let replacer = '   ';
     let beforeSymbol = replacer.repeat(iter);
     let result = '';
-    switch (resultDiff) {
+    console.log('key:  ', key);
+    console.log('res....... ', value1, value2, status, iter)
+    switch (status) {
         case 'equal':
             result += `${beforeSymbol}${key}: ${value1}\n`;
             break;
@@ -27,8 +29,18 @@ const stylishIter = (key, value1, value2 = ``, resultDiff, iter = 1) => {
     return result;
 }
 
-const stylish = (obj1, obj2) => {
+const stylish = (arr, iter = 1) => {
+    console.log('arr: \n', arr);
     let result = '{\n';
+    for (let item of arr) {
+        const [key, value1, value2, status] = item;
+        if (!Array.isArray(value1) && !Array.isArray(value2)) {
+            result += stylishIter(key, value1, value2, status, iter);
+        } else {
+            iter += 1;
+            result += stylishIter(key, value1, value2, status, iter);
+        }
+    }
 }
 
-export default stylishIter;
+export default stylish;
