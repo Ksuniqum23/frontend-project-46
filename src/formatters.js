@@ -1,10 +1,15 @@
-const stylishIter = (key, value1, value2 = ``, status, iter = 1) => {
-    let replacer = '   ';
+const stylishIter = (key, value1, value2, status, iter = 1) => {
+    let replacer = '    ';
     let beforeSymbol = replacer.repeat(iter);
     let result = '';
-    console.log('key:  ', key);
-    console.log('res....... ', value1, value2, status, iter)
+
     switch (status) {
+        case 'object':
+            result += `${beforeSymbol}${key}: {\n`;
+            iter += 1;
+            result += gotoKeys(value1, iter);
+            result += `${beforeSymbol}}\n`;
+            break;
         case 'equal':
             result += `${beforeSymbol}${key}: ${value1}\n`;
             break;
@@ -25,22 +30,68 @@ const stylishIter = (key, value1, value2 = ``, status, iter = 1) => {
             console.log('error');
             break;
     }
-    result += '}';
     return result;
 }
 
-const stylish = (arr, iter = 1) => {
-    console.log('arr: \n', arr);
-    let result = '{\n';
-    for (let item of arr) {
-        const [key, value1, value2, status] = item;
-        if (!Array.isArray(value1) && !Array.isArray(value2)) {
-            result += stylishIter(key, value1, value2, status, iter);
-        } else {
-            iter += 1;
-            result += stylishIter(key, value1, value2, status, iter);
+const gotoKeys = (obj, iter = 1) => {
+    const keys = Object.keys(obj);
+    let result = keys.reduce((acc, key) => {
+        const status = obj[key].status;
+        const v1 = obj[key].v1;
+        const v2 = obj[key].v2;
+        if (status === 'object') {
+            acc += stylishIter(key, v1, v2, status, iter);
         }
-    }
+        if (status !== 'object') {
+            acc += stylishIter(key, v1, v2, status, iter);
+        }
+        return acc;
+    }, '');
+    return result;
 }
+
+// const stylishObj = (resultObj, iter = 1) => {
+//     const keys = Object.keys(resultObj);
+//     let result = '{\n';
+//     result += keys.reduce((acc, key) => {
+//         const status = resultObj[key].status;
+//         const v1 = resultObj[key].v1;
+//         const v2 = resultObj[key].v2;
+//         if (status === 'object') {
+//             acc += stylishIter(key, v1, v2, status, iter);
+//             iter += 1;
+//             acc +=
+//         if (status !== 'object') {
+//             acc += stylishIter(key, v1, v2, status, iter);
+//         } else {
+//             iter += 1;
+//             acc += stylish(v1, iter);
+//         }
+//         return acc;
+//     }, '');
+//     return result;
+// }
+
+const stylish = (resultObj) => {
+    let result = '{\n';
+    result += gotoKeys(resultObj);
+    result += '}'
+    return result;
+}
+
+
+    // for (let key of keys) {
+    //     if (status === 'object') {
+    //         iter += 1;
+    //         result += stylish(resultObj[key])
+    //     }
+    //     if ( status !== 'object') {
+    //         const v1 = resultObj[key][v1];
+    //         const v2 = resultObj[key][v2];
+    //         const status = resultObj[key][status];
+    //         result = stylishIter(key, v1, v2, status, iter);
+    //     }
+    // }
+// }
 
 export default stylish;

@@ -47,6 +47,9 @@ const getData = (filePath) => parser(fs.readFileSync(filePath, 'utf-8'), extract
 
 const letStatus = (value1, value2) => {
   let result = '';
+  if (value1 === value2) {
+    result = 'equal';
+  }
   if (value1 !== value2) {
     result = 'different';
   }
@@ -85,7 +88,8 @@ const resultObjDif = (obj1, obj2) => {
     if (_.isEqual(value1, value2)) {
       acc[key] = {
         status: 'equal',
-        v: value1,
+        v1: value1,
+        v2: '',
       }
     }
     if (typeof value1 !== "object") {
@@ -98,7 +102,8 @@ const resultObjDif = (obj1, obj2) => {
     if (typeof value1 === "object") {
       acc[key] = {
         status: 'object',
-        value: resultObjDif(value1, value2)
+        v1: resultObjDif(value1, value2),
+        v2: ''
       }
     }
     return acc;
@@ -194,8 +199,7 @@ const genDiff = (filePath1, filePath2) => {
   const data1 = getData(fullPath1);
   const data2 = getData(fullPath2);
   const diffFile = resultObjDif(data1, data2);
-  // const formatting = stylish(diffFile);
-  console.log(diffFile);
-  return diffFile;
+  const formatting = stylish(diffFile);
+  return formatting;
 };
 export default genDiff;
