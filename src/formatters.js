@@ -1,3 +1,23 @@
+const printObject = (obj, replacer, iter) => {
+    // console.log(obj);
+    iter += 1;
+    let beforeSymbol = replacer.repeat(iter);
+    const keys = Object.keys(obj);
+    let result = keys.reduce((acc, key) => {
+        const value = obj[key];
+        if (typeof value === "object") {
+            acc += `${beforeSymbol}${key}: {\n`;
+            acc += printObject(value, replacer, iter);
+            acc += `${beforeSymbol}}\n`;
+        } else {
+            `${beforeSymbol}${key}: ${value}\n`;
+        }
+        return acc;
+        },
+        '');
+    return result;
+}
+
 const stylishIter = (key, value1, value2, status, iter = 1) => {
     let replacer = '    ';
     let beforeSymbol = replacer.repeat(iter);
@@ -5,11 +25,7 @@ const stylishIter = (key, value1, value2, status, iter = 1) => {
 
     switch (status) {
         // case undefined:
-        //     result += `${beforeSymbol}${key}: { !!!!!undefined\n`;
-        //     iter += 1;
-        //     result += JSON.stringify(value1, null, 2);
-        //     result += '\n'
-        //     result += `${beforeSymbol}}\n`;
+        //     result += printObject(value1, replacer, iter);
         //     break;
         case 'object':
             result += `${beforeSymbol}${key}: {\n`;
@@ -22,7 +38,7 @@ const stylishIter = (key, value1, value2, status, iter = 1) => {
             if (typeof value1 === "object") {
                 result += `${beforeSymbol}${key}: ${value1}\n`;
                 iter += 1;
-                result += gotoKeys(value1, iter);
+                result += printObject(value1, replacer, iter);
             } else {
                 result += `${beforeSymbol}${key}: ${value1}\n`;
             }
@@ -35,9 +51,7 @@ const stylishIter = (key, value1, value2, status, iter = 1) => {
         case 'add':
             if (typeof value2 === "object") {
                 result += `${beforeSymbol}${key}: \n`;
-                iter += 1;
-                console.log('we are in v2 = object, v2= ', value2);
-                result += gotoKeys(value2, iter);
+                result += printObject(value2, replacer, iter);
             } else {
                 result += `${beforeSymbol}${key}: ${value2}\n`;
             }
@@ -47,8 +61,7 @@ const stylishIter = (key, value1, value2, status, iter = 1) => {
         case 'remove':
             if (typeof value1 === "object") {
                 result += `${beforeSymbol}${key}: \n`;
-                iter += 1;
-                result += gotoKeys(value1, iter);
+                result += printObject(value1, replacer, iter);
             } else {
                 result += `${beforeSymbol}${key}: ${value1}\n`;
             }
@@ -59,7 +72,7 @@ const stylishIter = (key, value1, value2, status, iter = 1) => {
         //     result += `${beforeSymbol}${key}: ${value1}  !!case 'stringify'\n`;
         //     break;
         default:
-            console.log('error');
+            // console.log('error');
             break;
     }
     return result;
@@ -67,27 +80,18 @@ const stylishIter = (key, value1, value2, status, iter = 1) => {
 
 const gotoKeys = (obj, iter = 1) => {
     const keys = Object.keys(obj);
-    console.log('ALL KEYS:   ', keys);
+    // console.log('ALL KEYS:   ', keys);
     // if (obj1.status === undefined) {
     //     const status = 'stringify';
     // }
     let result = keys.reduce((acc, key) => {
-        let status;
-        if (obj[key].status !== undefined) {
-            status = obj[key].status;
+            const status = obj[key].status;
             const v1 = obj[key].v1;
             const v2 = obj[key].v2;
             acc += stylishIter(key, v1, v2, status, iter);
-        } else {
-            console.log('else!!! \n');
-            acc += JSON.stringify(obj[key], null, 2);
-            console.log('else >>>> \n');
-        }
-
-        // console.log('DATA: ', key, v1, v2, status, iter);
-
-        return acc;
-    }, '');
+            return acc;
+        },
+        '');
     return result;
 }
 
