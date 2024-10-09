@@ -119,19 +119,33 @@ const resultObjDif = (obj1, obj2) => {
     if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && (value1 !== value2)) {
       const value1 = obj1[key];
       const value2 = obj2[key];
-      if ((value1 === null || typeof value1 !== 'object') &&
-          (value2 === null || typeof value2 !== 'object')) {
-          acc[key] = {
-            status: 'different',
-            v1: value1,
-            v2: value2,
-          };
-      } else if (typeof value1 === 'object' || typeof value2 === 'object') {
-          acc[key] = {
-            status: 'difObject',
-            v: resultObjDif(value1, value2),
-          }
+      if (typeof value1 === 'object' && typeof value2 === 'object') {
+        acc[key] = {
+          status: 'difObject',
+          v: resultObjDif(value1, value2),
+        }
+      } else {
+        acc[key] = {
+          status: 'different',
+          v: value1,
+          v2: value2,
+        };
       }
+
+
+      // if ((value1 === null || typeof value1 !== 'object') &&
+      //     (value2 === null || typeof value2 !== 'object')) {
+      //     acc[key] = {
+      //       status: 'different',
+      //       v1: value1,
+      //       v2: value2,
+      //     };
+      // } else if (typeof value1 === 'object' && typeof value2 === 'object') {
+      //     acc[key] = {
+      //       status: 'difObject',
+      //       v: resultObjDif(value1, value2),
+      //     }
+      // }
     }
     return acc;
   }, {});
@@ -144,9 +158,9 @@ const genDiff = (filePath1, filePath2) => {
   const data1 = getData(fullPath1);
   const data2 = getData(fullPath2);
   const diffFile = resultObjDif(data1, data2);
-  // const formatting = stylish(diffFile);
-  console.log(JSON.stringify(diffFile, null, 2));
-  // console.log(formatting);
-  return diffFile;
+  const formatting = stylish(diffFile);
+  // console.log(JSON.stringify(diffFile, null, 2));
+  console.log(formatting);
+  return formatting;
 };
 export default genDiff;

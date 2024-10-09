@@ -85,8 +85,8 @@ const printObj = (obj, iter = 1) => {
     let beforeSymbol = replacer.repeat(iter);
     let result = '';
     for (const [key, value] of Object.entries(obj)) {
-        if (typeof value !== 'object') {
-            result += `${beforeSymbol}${key}: ${value}\n`;
+        if (value === null || typeof value !== 'object') {
+            result += `${beforeSymbol}${key}: ${value + ''}\n`;
         } else {
             result += `${beforeSymbol}${key}: {\n`;
             iter += 1;
@@ -102,11 +102,15 @@ const stylishIter = (key, value, iter = 1) => {
     let beforeSymbol = replacer.repeat(iter);
     let shortBeforeSymbol = beforeSymbol.slice(0, -2);
     let result = '';
+
+    const resultValue = value.v + '';
+    const separator = resultValue.length > 0 ? ' ' : '';
+
     const status = value.status;
     switch (status) {
         case 'equal':
-            if (typeof value.v !== 'object') {
-                result += `${beforeSymbol}${key}: ${value.v}\n`;
+            if (value.v === null || typeof value.v !== 'object') {
+                result += `${beforeSymbol}${key}:${separator}${resultValue}\n`;
             } else {
                 result += `${beforeSymbol}${key}: {\n`;
                 iter += 1;
@@ -115,8 +119,8 @@ const stylishIter = (key, value, iter = 1) => {
             }
             break;
         case 'remove':
-            if (typeof value.v !== 'object') {
-                result += `${shortBeforeSymbol}- ${key}: ${value.v}\n`;
+            if (value.v === null || typeof value.v !== 'object') {
+                result += `${shortBeforeSymbol}- ${key}:${separator}${resultValue}\n`;
             } else {
                 result += `${shortBeforeSymbol}- ${key}: {\n`;
                 iter += 1;
@@ -126,8 +130,8 @@ const stylishIter = (key, value, iter = 1) => {
             break;
 
         case 'add':
-            if (typeof value.v !== 'object') {
-                result += `${shortBeforeSymbol}+ ${key}: ${value.v}\n`;
+            if (value.v === null || typeof value.v !== 'object') {
+                result += `${shortBeforeSymbol}+ ${key}:${separator}${resultValue}\n`;
             } else {
                 result += `${shortBeforeSymbol}+ ${key}: {\n`;
                 iter += 1;
@@ -137,12 +141,33 @@ const stylishIter = (key, value, iter = 1) => {
             break;
 
         case 'different':
-            result += `${shortBeforeSymbol}- ${key}: ${value.v}\n`;
-            result += `${shortBeforeSymbol}+ ${key}: ${value.v}\n`;
+            if (value.v === null || typeof value.v !== 'object') {
+                result += `${shortBeforeSymbol}- ${key}:${separator}${resultValue}\n`;
+            } else {
+                result += `${shortBeforeSymbol}- ${key}: {\n`;
+                iter += 1;
+                result += printObj(value.v, iter);
+                result += `${beforeSymbol}}\n`;
+            }
+
+            const resultValue2 = value.v2 + ''
+            const separator2 = resultValue2.length > 0 ? ' ' : '';
+
+            if (value.v2 === null || typeof value.v2 !== 'object') {
+                result += `${shortBeforeSymbol}+ ${key}:${separator2}${resultValue2}\n`;
+            } else {
+                result += `${shortBeforeSymbol}+ ${key}: {\n`;
+                iter += 1;
+                result += printObj(value.v2, iter);
+                result += `${beforeSymbol}}\n`;
+            }
             break;
 
         case 'difObject':
-
+            result += `${beforeSymbol}${key}: {\n`;
+            iter += 1;
+            result += gotoKeys(value.v, iter);
+            result += `${beforeSymbol}}\n`;
             break;
         default:
             console.log('error');
