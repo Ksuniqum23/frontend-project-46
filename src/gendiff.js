@@ -20,8 +20,7 @@ const resultObjDif = (obj1, obj2) => {
   }
   const resultKeys = _.union(obj1keys, obj2keys).sort();
 
-  let result;
-  result = resultKeys.reduce((acc, key) => {
+  const result = resultKeys.reduce((acc, key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
     if (_.isEqual(value1, value2)) {
@@ -43,8 +42,8 @@ const resultObjDif = (obj1, obj2) => {
       };
     }
     if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && (value1 !== value2)) {
-      const value1 = obj1[key];
-      const value2 = obj2[key];
+      // const value1 = obj1[key];
+      // const value2 = obj2[key];
       if (typeof value1 === 'object' && typeof value2 === 'object') {
         acc[key] = {
           status: 'difObject',

@@ -2,16 +2,16 @@ const printObj = (obj, iter = 1) => {
   const replacer = '    ';
   const beforeSymbol = replacer.repeat(iter);
   let result = '';
-  for (const [key, value] of Object.entries(obj)) {
+  Object.entries(obj).forEach(([key, value]) => {
     if (value === null || typeof value !== 'object') {
-      result += `${beforeSymbol}${key}: ${`${value}`}\n`;
+      result += `${beforeSymbol}${key}: ${value}\n`;
     } else {
       result += `${beforeSymbol}${key}: {\n`;
-      iter += 1;
-      result += printObj(value, iter);
+      const newIter = iter + 1;
+      result += printObj(value, newIter);
       result += `${beforeSymbol}}\n`;
     }
-  }
+  });
   return result;
 };
 
@@ -23,26 +23,30 @@ const stylishIter = (key, value, iter = 1) => {
 
   const resultValue = `${value.v}`;
   const separator = resultValue.length > 0 ? ' ' : '';
-
+  let resultValue2;
+  let separator2;
+  let newIter;
   const { status } = value;
+
   switch (status) {
     case 'equal':
       if (value.v === null || typeof value.v !== 'object') {
         result += `${beforeSymbol}${key}:${separator}${resultValue}\n`;
       } else {
         result += `${beforeSymbol}${key}: {\n`;
-        iter += 1;
-        result += printObj(value.v, iter);
+        newIter = iter + 1;
+        result += printObj(value.v, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
+
     case 'remove':
       if (value.v === null || typeof value.v !== 'object') {
         result += `${shortBeforeSymbol}- ${key}:${separator}${resultValue}\n`;
       } else {
         result += `${shortBeforeSymbol}- ${key}: {\n`;
-        iter += 1;
-        result += printObj(value.v, iter);
+        newIter = iter + 1;
+        result += printObj(value.v, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
@@ -52,8 +56,8 @@ const stylishIter = (key, value, iter = 1) => {
         result += `${shortBeforeSymbol}+ ${key}:${separator}${resultValue}\n`;
       } else {
         result += `${shortBeforeSymbol}+ ${key}: {\n`;
-        iter += 1;
-        result += printObj(value.v, iter);
+        newIter = iter + 1;
+        result += printObj(value.v, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
@@ -63,30 +67,31 @@ const stylishIter = (key, value, iter = 1) => {
         result += `${shortBeforeSymbol}- ${key}:${separator}${resultValue}\n`;
       } else {
         result += `${shortBeforeSymbol}- ${key}: {\n`;
-        iter += 1;
-        result += printObj(value.v, iter);
+        newIter = iter + 1;
+        result += printObj(value.v, newIter);
         result += `${beforeSymbol}}\n`;
       }
 
-      const resultValue2 = `${value.v2}`;
-      const separator2 = resultValue2.length > 0 ? ' ' : '';
+      resultValue2 = `${value.v2}`;
+      separator2 = resultValue2.length > 0 ? ' ' : '';
 
       if (value.v2 === null || typeof value.v2 !== 'object') {
         result += `${shortBeforeSymbol}+ ${key}:${separator2}${resultValue2}\n`;
       } else {
         result += `${shortBeforeSymbol}+ ${key}: {\n`;
-        iter += 1;
-        result += printObj(value.v2, iter);
+        newIter = iter + 1;
+        result += printObj(value.v2, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
 
     case 'difObject':
       result += `${beforeSymbol}${key}: {\n`;
-      iter += 1;
-      result += gotoKeys(value.v, iter);
+      newIter = iter + 1;
+      result += gotoKeys(value.v, newIter);
       result += `${beforeSymbol}}\n`;
       break;
+
     default:
       console.log('error');
       break;
@@ -99,8 +104,7 @@ const gotoKeys = (obj, iter = 1) => {
   const result = keys.reduce(
     (acc, key) => {
       const value = obj[key];
-      acc += stylishIter(key, value, iter);
-      return acc;
+      return acc + stylishIter(key, value, iter);
     },
     '',
   );
