@@ -24,10 +24,11 @@ npm link /// Для глобальной установки пакета из л
 
 npx eslint .
 npx eslint . --fix
-
-asciinema rec test.cast
-exit
-asciinema upload test.cast
+============================================================
+                asciinema rec test.cast
+                exit
+                asciinema upload test.cast
+==============================================================
 
 gendiff -h
 gendiff __fixtures__/file1.json __fixtures__/file2.json
@@ -39,6 +40,8 @@ gendiff __fixtures__/file1.yml __fixtures__/file2.yml
 gendiff --format plain __fixtures__/file1.yml __fixtures__/file2.yml
 gendiff __fixtures__/file3_1.yml __fixtures__/file3_2.yml
 gendiff --format plain __fixtures__/file3_1.yml __fixtures__/file3_2.yml
+
+cat output.json
 
 
 
