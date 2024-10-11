@@ -74,7 +74,7 @@ test(
       setTimeout(() => {
         expect(fs.existsSync(fileName)).toBe(true); // проверяем, что файл есть
         const data = fs.readFileSync(fileName, 'utf8'); // читаем
-        // expect(JSON.parse(data)).toEqual(testObject); // проверяем содержимое
+        expect(JSON.parse(data)).toEqual(testObject); // проверяем содержимое
         done();
       }, 100);
     },
