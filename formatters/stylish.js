@@ -22,7 +22,7 @@ const stylishIter = (key, value, iter = 1) => {
   let result = '';
 
   const resultValue = `${value.v}`;
-  const separator = ' '; // resultValue.length > 0 ? ' ' : '';
+  const separator = ''; // resultValue.length > 0 ? ' ' : '';
   let resultValue2;
   let separator2;
   let newIter;
@@ -73,7 +73,7 @@ const stylishIter = (key, value, iter = 1) => {
       }
 
       resultValue2 = `${value.v2}`;
-      separator2 = resultValue2.length > 0 ? ' ' : '';
+      separator2 = ' ' //resultValue2.length > 0 ? ' ' : '';
 
       if (value.v2 === null || typeof value.v2 !== 'object') {
         result += `${shortBeforeSymbol}+ ${key}:${separator2}${resultValue2}\n`;
