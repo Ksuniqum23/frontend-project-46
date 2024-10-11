@@ -2,6 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import * as fs from 'fs';
 import gendiff from '../index.js';
+import createJsonFile from '../formatters/json.js';
 
 test('test1 genDiff', () => {
   const response = gendiff('__fixtures__/Alice.json', '__fixtures__/Bob.json');
@@ -62,3 +63,19 @@ test('test6 genDiff json deep PLAIN formatter', () => {
   const response = gendiff(path1file, path2file, 'plain');
   expect(response.trim()).toBe(fs.readFileSync(pathResultfile, 'utf8').trim());
 });
+
+test(
+  'test7 JSON file',
+  (done) => {
+    const testObject = { name: 'Иван', age: 30 };
+    const fileName = 'output.json';
+    createJsonFile(testObject);
+
+    setTimeout(() => {
+      expect(fs.existsSync(fileName)).toBe(true); // проверяем, что файл есть
+      const data = fs.readFileSync(fileName, 'utf8'); // читаем
+      expect(JSON.parse(data)).toEqual(testObject); // проверяем содержимое
+      done();
+    }, 100);
+  },
+);
