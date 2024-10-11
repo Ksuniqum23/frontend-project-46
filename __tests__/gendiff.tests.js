@@ -57,7 +57,7 @@ test('test4 genDiff json deep', () => {
     expect(response.trim()).toBe(fs.readFileSync(pathResultfile, 'utf8').trim());
 });
 
-test('test4 genDiff yml deep', () => {
+test('test5 genDiff yml deep', () => {
     let path1file;
     path1file = path.join(__dirname, '..', '__fixtures__', 'file3_1.yml');
     let path2file;
@@ -67,3 +67,14 @@ test('test4 genDiff yml deep', () => {
     const response = gendiff(path1file, path2file);
     expect(response.trim()).toBe(fs.readFileSync(pathResultfile, 'utf8').trim());
 });
+
+// test('test6 genDiff json deep PLAIN formatter', () => {
+//     let path1file;
+//     path1file = path.join(__dirname, '..', '__fixtures__', 'file3_1.json');
+//     let path2file;
+//     path2file = path.join(__dirname, '..', '__fixtures__', 'file3_2.json');
+//     let pathResultfile;
+//     pathResultfile = path.join(__dirname, '..', '__fixtures__', 'file3_12_plain_result.txt');
+//     const response = gendiff(path1file, path2file, plain);
+//     expect(response.trim()).toBe(fs.readFileSync(pathResultfile, 'utf8').trim());
+// });
