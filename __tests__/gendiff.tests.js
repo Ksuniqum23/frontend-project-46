@@ -66,16 +66,13 @@ test('test6 genDiff json deep PLAIN formatter', () => {
 
 test(
     'test7 JSON file',
-    (done) => {
+    async () => {
       const testObject = { name: 'Иван', age: 30 };
       const fileName = 'output.json';
       createJsonFile(testObject);
-
-      setTimeout(() => {
-        expect(fs.existsSync(fileName)).toBe(true); // проверяем, что файл есть
-        const data = fs.readFileSync(fileName, 'utf8'); // читаем
-        expect(JSON.parse(data)).toEqual(testObject); // проверяем содержимое
-        done();
-      }, 100);
+      await createJsonFile(testObject);
+      expect(fs.existsSync(fileName)).toBe(true); // проверяем, что файл есть
+      const data = fs.readFileSync(fileName, 'utf8'); // читаем
+      expect(JSON.parse(data)).toEqual(testObject); // проверяем содержимое
     },
 );
