@@ -9,7 +9,7 @@ const resultResponce = (pathToKey, v, v2, status) => {
   if (v && typeof v === 'object') {
     vNew = '[complex value]';
   }
-  if (v2 && typeof v2 === 'string') {
+  if (typeof v2 === 'string') {
     v2new = `'${v2}'`;
   }
   if (v2 && typeof v2 === 'object') {
