@@ -22,7 +22,7 @@ const stylishIter = (key, value, iter = 1) => {
   let result = '';
 
   const resultValue = `${value.v}`;
-  const separator = resultValue.length > 0 ? ' ' : '';
+  const separator = ' '; // resultValue.length > 0 ? ' ' : '';
   let resultValue2;
   let separator2;
   let newIter;
