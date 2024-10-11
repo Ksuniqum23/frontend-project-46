@@ -5,7 +5,7 @@ import genDiff from '../index.js';
 const program = new Command();
 
 const justDoIt = (file1, file2, formatName) => {
-  const format = formatName.format;
+  const { format } = formatName;
   genDiff(file1, file2, format);
 };
 
