@@ -61,6 +61,12 @@ const goToKeys = (obj, path = '') => {
   return result;
 };
 
-const plain = (resultObj) => goToKeys(resultObj);
+const plain = (resultObj) => {
+  let result = goToKeys(resultObj);;
+  if (result.endsWith('\n')) {
+    result = result.slice(0, -1);
+  }
+  return result;
+}
 
 export default plain;
