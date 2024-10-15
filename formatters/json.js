@@ -5,6 +5,7 @@ const createJsonFile = (obj) => {
   const jsonString = JSON.stringify(obj, null, 2); // Второй аргумент null, третий 2 — для отступов
   const fileName = 'output.json';
   // Записываем строку JSON в файл
+  console.log(jsonString);
   fs.writeFile(fileName, jsonString, (err) => {
     if (err) {
       console.error('Ошибка записи файла:', err);
