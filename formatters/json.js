@@ -6,13 +6,8 @@ const createJsonFile = (obj) => {
   const fileName = 'output.json';
   // Записываем строку JSON в файл
   console.log(jsonString);
-  fs.writeFile(fileName, jsonString, (err) => {
-    if (err) {
-      console.error('Ошибка записи файла:', err);
-    } else {
-      console.log('Файл успешно создан:', fileName);
-    }
-  });
+  fs.writeFileSync(fileName, jsonString);
+  return jsonString;
 };
 
 export default createJsonFile;
