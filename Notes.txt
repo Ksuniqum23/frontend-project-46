@@ -41,6 +41,9 @@ gendiff --format plain __fixtures__/file1.yml __fixtures__/file2.yml
 gendiff __fixtures__/file3_1.yml __fixtures__/file3_2.yml
 gendiff --format plain __fixtures__/file3_1.yml __fixtures__/file3_2.yml
 
+gendiff --format plain __fixtures__/file1.yml __fixtures__/file2.yml
+gendiff --format json __fixtures__/file1.yml __fixtures__/file2.yml
+
 cat output.json
 
 

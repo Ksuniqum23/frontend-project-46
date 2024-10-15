@@ -15,13 +15,3 @@ const createJsonFile = (obj) => {
 };
 
 export default createJsonFile;
-// // Пример использования
-// const sampleObject = {
-//     name: "Иван",
-//     age: 30,
-//     married: true,
-//     children: ["Маша", "Игорь"],
-// };
-//
-// // Создание файла output.json
-// createJsonFile(sampleObject, 'output.json');
