@@ -9,7 +9,6 @@ const extractFormat = (filePath) => path.extname(filePath).slice(1);
 const getData = (filePath) => parser(fs.readFileSync(filePath, 'utf-8'), extractFormat(filePath));
 
 const resultObjDif = (obj1, obj2) => {
-  // получаем результирующие ключи:
   let obj1keys = [];
   let obj2keys = [];
   if (obj1 !== null && obj1 !== undefined && Object.keys(obj1).length > 0) {
@@ -42,8 +41,6 @@ const resultObjDif = (obj1, obj2) => {
       };
     }
     if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && (value1 !== value2)) {
-      // const value1 = obj1[key];
-      // const value2 = obj2[key];
       if (typeof value1 === 'object' && typeof value2 === 'object') {
         acc[key] = {
           status: 'difObject',
