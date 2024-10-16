@@ -72,6 +72,7 @@ const genDiff = (filePath1, filePath2, formatName = 'stylish') => {
   // if (formatName !== 'json') {
   //   console.log(formatting);
   // }
+  console.log(formatting);
   return formatting;
 };
 export default genDiff;
