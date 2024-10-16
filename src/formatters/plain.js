@@ -1,18 +1,18 @@
-const resultResponce = (pathToKey, v, v2, status) => {
+const resultResponse = (pathToKey, beforeValue, afterValue, status) => {
   let result = '';
   let answer = '';
-  let vNew = v;
-  let v2new = v2;
-  if (typeof v === 'string') {
-    vNew = `'${v}'`;
+  let vNew = beforeValue;
+  let v2new = afterValue;
+  if (typeof beforeValue === 'string') {
+    vNew = `'${beforeValue}'`;
   }
-  if (v && typeof v === 'object') {
+  if (beforeValue && typeof beforeValue === 'object') {
     vNew = '[complex value]';
   }
-  if (typeof v2 === 'string') {
-    v2new = `'${v2}'`;
+  if (typeof afterValue === 'string') {
+    v2new = `'${afterValue}'`;
   }
-  if (v2 && typeof v2 === 'object') {
+  if (afterValue && typeof afterValue === 'object') {
     v2new = '[complex value]';
   }
 
@@ -53,9 +53,9 @@ const goToKeys = (obj, path = '') => {
     }
 
     if (obj[key].status === 'difObject') {
-      result += goToKeys(obj[key].v, pathToKeyStr);
+      result += goToKeys(obj[key].beforeValue, pathToKeyStr);
     } else {
-      result += resultResponce(pathToKeyStr, obj[key].v, obj[key].v2, obj[key].status);
+      result += resultResponse(pathToKeyStr, obj[key].beforeValue, obj[key].afterValue, obj[key].status);
     }
   });
   return result;

@@ -2,7 +2,7 @@ const printObj = (obj, iter = 1) => {
   const replacer = '    ';
   const beforeSymbol = replacer.repeat(iter);
   let result = '';
-  Object.entries(obj).forEach(([key, value]) => {
+  Object.entries(obj || {}).forEach(([key, value]) => {
     if (value === null || typeof value !== 'object') {
       result += `${beforeSymbol}${key}: ${value}\n`;
     } else {
@@ -21,7 +21,7 @@ const stylishIter = (key, value, iter = 1) => {
   const shortBeforeSymbol = beforeSymbol.slice(0, -2);
   let result = '';
 
-  const resultValue = `${value.v}`;
+  const resultValue = `${value.beforeValue}`;
   const separator = ' '; // resultValue.length > 0 ? ' ' : '';
   let resultValue2;
   let separator2;
@@ -30,57 +30,57 @@ const stylishIter = (key, value, iter = 1) => {
 
   switch (status) {
     case 'equal':
-      if (value.v === null || typeof value.v !== 'object') {
+      if (value.beforeValue === null || typeof value.beforeValue !== 'object') {
         result += `${beforeSymbol}${key}:${separator}${resultValue}\n`;
       } else {
         result += `${beforeSymbol}${key}: {\n`;
         newIter = iter + 1;
-        result += printObj(value.v, newIter);
+        result += printObj(value.beforeValue, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
 
     case 'remove':
-      if (value.v === null || typeof value.v !== 'object') {
+      if (value.beforeValue === null || typeof value.beforeValue !== 'object') {
         result += `${shortBeforeSymbol}- ${key}:${separator}${resultValue}\n`;
       } else {
         result += `${shortBeforeSymbol}- ${key}: {\n`;
         newIter = iter + 1;
-        result += printObj(value.v, newIter);
+        result += printObj(value.beforeValue, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
 
     case 'add':
-      if (value.v === null || typeof value.v !== 'object') {
+      if (value.beforeValue === null || typeof value.beforeValue !== 'object') {
         result += `${shortBeforeSymbol}+ ${key}:${separator}${resultValue}\n`;
       } else {
         result += `${shortBeforeSymbol}+ ${key}: {\n`;
         newIter = iter + 1;
-        result += printObj(value.v, newIter);
+        result += printObj(value.beforeValue, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
 
     case 'different':
-      if (value.v === null || typeof value.v !== 'object') {
+      if (value.beforeValue === null || typeof value.beforeValue !== 'object') {
         result += `${shortBeforeSymbol}- ${key}:${separator}${resultValue}\n`;
       } else {
         result += `${shortBeforeSymbol}- ${key}: {\n`;
         newIter = iter + 1;
-        result += printObj(value.v, newIter);
+        result += printObj(value.beforeValue, newIter);
         result += `${beforeSymbol}}\n`;
       }
 
-      resultValue2 = `${value.v2}`;
+      resultValue2 = `${value.afterValue}`;
       separator2 = ' '; // resultValue2.length > 0 ? ' ' : '';
 
-      if (value.v2 === null || typeof value.v2 !== 'object') {
+      if (value.afterValue === null || typeof value.afterValue !== 'object') {
         result += `${shortBeforeSymbol}+ ${key}:${separator2}${resultValue2}\n`;
       } else {
         result += `${shortBeforeSymbol}+ ${key}: {\n`;
         newIter = iter + 1;
-        result += printObj(value.v2, newIter);
+        result += printObj(value.afterValue, newIter);
         result += `${beforeSymbol}}\n`;
       }
       break;
@@ -88,7 +88,7 @@ const stylishIter = (key, value, iter = 1) => {
     case 'difObject':
       result += `${beforeSymbol}${key}: {\n`;
       newIter = iter + 1;
-      result += gotoKeys(value.v, newIter);
+      result += gotoKeys(value.beforeValue, newIter);
       result += `${beforeSymbol}}\n`;
       break;
 
@@ -101,14 +101,13 @@ const stylishIter = (key, value, iter = 1) => {
 
 const gotoKeys = (obj, iter = 1) => {
   const keys = Object.keys(obj);
-  const result = keys.reduce(
+  return keys.reduce(
     (acc, key) => {
       const value = obj[key];
       return acc + stylishIter(key, value, iter);
     },
     '',
   );
-  return result;
 };
 
 const stylish = (resultObj) => {
