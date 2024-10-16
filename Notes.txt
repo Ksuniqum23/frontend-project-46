@@ -96,5 +96,6 @@ JS-YAML - YAML 1.2 parser
 
 npm install js-yaml
 
-adsf
+=======NEW LAPTOP============
+npm init @eslint/config@latest
 

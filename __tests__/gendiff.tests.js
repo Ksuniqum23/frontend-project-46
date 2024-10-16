@@ -2,7 +2,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import * as fs from 'fs';
 import gendiff from '../index.js';
-import createJsonFile from "../formatters/json.js";
 
 // Получаю путь к текущему файлу
 const __filename = fileURLToPath(import.meta.url);
@@ -55,31 +54,11 @@ test('test6 format error', () => {
   expect(response.trim()).toBe('error');
 });
 
-// test('test7 JSON file', (done) => {
-//   const path1file = path.join(__dirname, '..', '__fixtures__', 'file1.json');
-//   const path2file = path.join(__dirname, '..', '__fixtures__', 'file2.json');
-//   const pathResultfile = path.join(__dirname, '..', '__fixtures__', 'file1_2_result.txt');
-//   const outputFilePath = path.join(__dirname, '..', '__fixtures__', 'output.json');
-//   const response = gendiff(path1file, path2file, 'json');
-//
-//   setTimeout(() => {
-//     expect(fs.existsSync(outputFilePath)).toBe(true);
-//     const data = fs.readFileSync(outputFilePath, 'utf8');
-//     const expectedData = fs.readFileSync(pathResultfile, 'utf8');
-//     expect(JSON.parse(data)).toEqual(JSON.parse(expectedData));
-//     done();
-//   }, 100);
-// }, 20000);
-// const fs = require('fs').promises;
 test('test 7 json async', () => {
   const path1file = path.join(__dirname, '..', '__fixtures__', 'file1.json');
   const path2file = path.join(__dirname, '..', '__fixtures__', 'file2.json');
-  // const pathResultfile = path.join(__dirname, '..', '__fixtures__', 'file1_2_result.txt');
   const outputFilePath = path.join(__dirname, '..', 'output.json');
-
   gendiff(path1file, path2file, 'json');
-  // await fs.promises.access(outputFilePath);
   const data = fs.readFileSync(outputFilePath, 'utf-8');
-  // const expectData = fs.readFileSync(pathResultfile, 'utf-8');
   expect(data).toBeTruthy();
 });
