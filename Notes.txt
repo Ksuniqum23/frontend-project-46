@@ -98,4 +98,5 @@ npm install js-yaml
 
 =======NEW LAPTOP============
 npm init @eslint/config@latest
+icacls "bin\gendiff.js" /grant:r "$($env:username):(RX)" // это для разрешения исполнения файла
 

@@ -8,11 +8,14 @@
 Программа для сравнения файлов форматов json и yaml.
 #### После клонирования репозитория необходимо:
 1. Установить зависимости: npm install
-2. Выполнить npm install -g gendiff &&&&&&
+2. Установить пакеты глобально: npm link
+
 
 #### Примеры использования:
 1. gendiff -h
 2. gendiff __fixtures__/file1.yml __fixtures__/file2.yml
+3. gendiff --format plain __fixtures__/file1.yml __fixtures__/file2.yml
+4. gendiff --format json __fixtures__/file1.yml __fixtures__/file2.yml
 
 * Если команды не работают - следует добавить префикс npx
 
