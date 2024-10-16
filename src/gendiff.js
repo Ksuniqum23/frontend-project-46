@@ -2,7 +2,7 @@ import path from 'path';
 import * as fs from 'fs';
 import _ from 'lodash';
 import parser from './parser.js';
-import doFormatting from '../formatters/index.js';
+import doFormatting from './formatters/index.js';
 
 const getFullPath = (filePath) => path.resolve(process.cwd(), filePath);
 const extractFormat = (filePath) => path.extname(filePath).slice(1);
