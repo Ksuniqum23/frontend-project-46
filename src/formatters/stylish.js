@@ -88,7 +88,7 @@ const stylishIter = (key, value, iter = 1) => {
     case 'difObject':
       result += `${beforeSymbol}${key}: {\n`;
       newIter = iter + 1;
-      result += gotoKeys(value.beforeValue, newIter);
+      result += gotoKeys(value.children, newIter);
       result += `${beforeSymbol}}\n`;
       break;
 

@@ -53,7 +53,7 @@ const goToKeys = (obj, path = '') => {
     }
 
     if (obj[key].status === 'difObject') {
-      result += goToKeys(obj[key].beforeValue, pathToKeyStr);
+      result += goToKeys(obj[key].children, pathToKeyStr);
     } else {
       result += resultResponse(pathToKeyStr, obj[key].beforeValue, obj[key].afterValue, obj[key].status);
     }

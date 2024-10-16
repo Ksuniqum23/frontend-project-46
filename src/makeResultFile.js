@@ -33,7 +33,7 @@ const resultObjDif = (obj1, obj2) => {
       if (typeof value1 === 'object' && typeof value2 === 'object') {
         acc[key] = {
           status: 'difObject',
-          beforeValue: resultObjDif(value1, value2),
+          children: resultObjDif(value1, value2),
         };
       } else {
         acc[key] = {
