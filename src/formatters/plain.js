@@ -30,23 +30,20 @@ const getAnswer = (status, beforeValue, afterValue) => {
 const resultResponse = (pathToKey, beforeValue, afterValue, status) => `Property '${pathToKey}' ${getAnswer(status, beforeValue, afterValue)}\n`;
 
 const goToKeys = (obj, path = '') => {
-  const result = [];
-  const keys = Object.keys(obj);
-  keys.forEach((key) => {
-    if (obj[key].status !== 'equal') {
+  return Object.keys(obj)
+    .filter((key) => obj[key].status !== 'equal')
+    .map((key) => {
       const pathToKey = [path, key];
       const pathToKeyStr = pathToKey.join('.').trim().replace(/^\./, '');
 
       if (obj[key].status !== 'difObject') {
         const value1 = obj[key].beforeValue;
         const value2 = obj[key].afterValue;
-        result.push(resultResponse(pathToKeyStr, value1, value2, obj[key].status));
-      } else {
-        result.push(goToKeys(obj[key].children, pathToKeyStr));
+        return resultResponse(pathToKeyStr, value1, value2, obj[key].status);
       }
-    }
-  });
-  return result.join('');
+      return goToKeys(obj[key].children, pathToKeyStr);
+  })
+  .join('');
 };
 
 const plain = (resultObj) => goToKeys(resultObj).replace(/\n$/, '');
