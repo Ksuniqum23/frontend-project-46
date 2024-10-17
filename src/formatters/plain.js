@@ -46,7 +46,7 @@ const plain = (obj, path = '') => {
       }
     }
   });
-  return result.join('');
+  return result.join('').replace(/^\./, '');
 };
 
 export default plain;
