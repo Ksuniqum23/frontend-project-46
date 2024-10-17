@@ -6,8 +6,7 @@ const program = new Command();
 
 const justDoIt = (file1, file2, formatName) => {
   const { format } = formatName;
-  genDiff(file1, file2, format);
-  // console.log(genDiff(file1, file2, format));
+  return genDiff(file1, file2, format);
 };
 
 program
@@ -17,8 +16,4 @@ program
   .option('-f, --format <type>', 'output format', 'stylish')
   .action(justDoIt);
 
-// Парсинг аргументов командной строки
 program.parse(process.argv);
-
-// https://youtu.be/_Oe4B6OKPvY?si=OYQ3DR3aU-kDF4Af&t=3142
-// https://www.perplexity.ai/search/dlia-chego-nuzhen-etot-proekt-seONF3MiRD6C1hGWvAzwtg
