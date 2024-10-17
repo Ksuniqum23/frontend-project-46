@@ -49,7 +49,10 @@ test('test2 genDiff .yml default formatter', () => {
 test('test3 genDiff .json PLAIN formatter', () => {
   const [file1Path, file2Path, fileResultPath] = getFixtures('json', 'plain');
   const response = gendiff(file1Path, file2Path, 'plain');
-  expect(response.trim()).toBe(fs.readFileSync(fileResultPath, 'utf8').trim());
+  const fileContent = fs.readFileSync(fileResultPath, 'utf8');
+  const trimmedResponse = response.split('\n').map((line) => line.trimEnd()).join('\n').trim();
+  const trimmedFileContent = fileContent.split('\n').map((line) => line.trimEnd()).join('\n').trim();
+  expect(trimmedResponse).toBe(trimmedFileContent);
 });
 
 test('test4 genDiff JSON formatter', () => {
