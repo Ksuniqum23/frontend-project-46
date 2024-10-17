@@ -53,7 +53,7 @@ test('test3 genDiff .json PLAIN formatter', () => {
 });
 
 test('test4 genDiff JSON formatter', () => {
-  const [file1Path, file2Path, fileResultPath] = getFixtures('json', 'default');
+  const [file1Path, file2Path] = getFixtures('json', 'default');
   const outputFilePath = path.join(__dirname, '..', 'output.json');
   gendiff(file1Path, file2Path, 'json');
   const data = fs.readFileSync(outputFilePath, 'utf-8');
@@ -61,7 +61,7 @@ test('test4 genDiff JSON formatter', () => {
 });
 
 test('test5 format error', () => {
-  const [file1Path, file2Path, fileResultPath] = getFixtures('json', 'default');
+  const [file1Path, file2Path] = getFixtures('json', 'default');
   const response = gendiff(file1Path, file2Path, 'qwe123');
   expect(response.trim()).toBe('error');
 });
