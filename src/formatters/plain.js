@@ -23,40 +23,30 @@ const getAnswer = (status, beforeValue, afterValue) => {
       return `was updated. From ${stringify(beforeValue)} to ${stringify(afterValue)}`;
 
     default:
-      console.log('error');
+      return 'error';
   }
 };
 
 const resultResponse = (pathToKey, beforeValue, afterValue, status) => `Property '${pathToKey}' ${getAnswer(status, beforeValue, afterValue)}\n`;
 
-const goToKeys = (obj, path = '') => {
-  let result = '';
+const plain = (obj, path = '') => {
+  const result = [];
   const keys = Object.keys(obj);
   keys.forEach((key) => {
     if (obj[key].status !== 'equal') {
       const pathToKey = [path, key];
-      let pathToKeyStr = pathToKey.join('.').trim();
+      const pathToKeyStr = pathToKey.join('.').trim().replace(/^\./, '');
 
-      if (pathToKeyStr[0] === '.') {
-        pathToKeyStr = pathToKeyStr.slice(1);
-      }
-
-      if (obj[key].status === 'difObject') {
-        result += goToKeys(obj[key].children, pathToKeyStr);
+      if (obj[key].status !== 'difObject') {
+        const value1 = obj[key].beforeValue;
+        const value2 = obj[key].afterValue;
+        result.push(resultResponse(pathToKeyStr, value1, value2, obj[key].status));
       } else {
-        result += resultResponse(pathToKeyStr, obj[key].beforeValue, obj[key].afterValue, obj[key].status);
+        result.push(plain(obj[key].children, pathToKeyStr));
       }
     }
   });
-  return result;
-};
-
-const plain = (resultObj) => {
-  let result = goToKeys(resultObj);
-  if (result.endsWith('\n')) {
-    result = result.slice(0, -1);
-  }
-  return result;
+  return result.join('');
 };
 
 export default plain;
