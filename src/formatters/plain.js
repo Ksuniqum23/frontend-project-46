@@ -49,7 +49,5 @@ const goToKeys = (obj, path = '') => {
   return result.join('');
 };
 
-const plain = (resultObj) => {
-  return goToKeys(resultObj).replace(/\n$/, '');
-};
+const plain = (resultObj) => goToKeys(resultObj).replace(/\n$/, '');
 export default plain;
