@@ -29,7 +29,7 @@ const getAnswer = (status, beforeValue, afterValue) => {
 
 const resultResponse = (pathToKey, beforeValue, afterValue, status) => `Property '${pathToKey}' ${getAnswer(status, beforeValue, afterValue)}\n`;
 
-const plain = (obj, path = '') => {
+const goToKeys = (obj, path = '') => {
   const result = [];
   const keys = Object.keys(obj);
   keys.forEach((key) => {
@@ -42,11 +42,14 @@ const plain = (obj, path = '') => {
         const value2 = obj[key].afterValue;
         result.push(resultResponse(pathToKeyStr, value1, value2, obj[key].status));
       } else {
-        result.push(plain(obj[key].children, pathToKeyStr));
+        result.push(goToKeys(obj[key].children, pathToKeyStr));
       }
     }
   });
-  return result.join('').replace(/\n/g, '');
+  return result.join('');
 };
 
+const plain = (resultObj) => {
+  return goToKeys(resultObj).replace(/\n$/, '');
+};
 export default plain;
