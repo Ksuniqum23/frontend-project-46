@@ -49,17 +49,22 @@ const resultObjDif = (obj1, obj2) => {
 
     if (hasKeyInObj1 && hasKeyInObj2 && (value1 !== value2)) {
       if (typeof value1 === 'object' && typeof value2 === 'object') {
-        acc[key] = {
-          status: 'difObject',
-          children: resultObjDif(value1, value2),
+        return {
+          ...acc,
+          [key]: {
+            status: 'difObject',
+            children: resultObjDif(value1, value2),
+          },
         };
-      } else {
-        acc[key] = {
+      }
+      return {
+        ...acc,
+        [key]: {
           status: 'different',
           beforeValue: value1,
           afterValue: value2,
-        };
-      }
+        },
+      };
     }
     return acc;
   }, {});
