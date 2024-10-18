@@ -8,10 +8,10 @@ const resultObjDif = (obj1, obj2) => {
   const obj1keys = getKeys(obj1);
   const obj2keys = getKeys(obj2);
 
-  const resultKeys = _.union(obj1keys, obj2keys);
-  const sortedKeys = [...resultKeys].sort();
+  // eslint-disable-next-line fp/no-mutating-methods
+  const resultKeys = _.union(obj1keys, obj2keys).sort();
 
-  return sortedKeys.reduce((acc, key) => {
+  return resultKeys.reduce((acc, key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 
