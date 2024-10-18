@@ -1,35 +1,53 @@
 import _ from 'lodash';
 
+const checkProp = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+
 const resultObjDif = (obj1, obj2) => {
   const getKeys = (obj) => (obj && Object.keys(obj).length > 0 ? Object.keys(obj) : []);
 
   const obj1keys = getKeys(obj1);
   const obj2keys = getKeys(obj2);
 
-  const resultKeys = _.union(obj1keys, obj2keys).sort();
+  const resultKeys = _.union(obj1keys, obj2keys).toSorted();
 
-  const result = resultKeys.reduce((acc, key) => {
+  return resultKeys.reduce((acc, key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
+
     if (_.isEqual(value1, value2)) {
-      acc[key] = {
-        status: 'equal',
-        beforeValue: value1,
+      return {
+        ...acc,
+        [key]: {
+          status: 'equal',
+          beforeValue: value1,
+        },
       };
     }
-    if (obj1.hasOwnProperty(key) && !obj2.hasOwnProperty(key)) {
-      acc[key] = {
-        status: 'remove',
-        beforeValue: value1,
+
+    const hasKeyInObj1 = checkProp(obj1, key);
+    const hasKeyInObj2 = checkProp(obj2, key);
+
+    if (hasKeyInObj1 && !hasKeyInObj2) {
+      return {
+        ...acc,
+        [key]: {
+          status: 'remove',
+          beforeValue: value1,
+        },
       };
     }
-    if (!obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key)) {
-      acc[key] = {
-        status: 'add',
-        beforeValue: value2,
+
+    if (!hasKeyInObj1 && hasKeyInObj2) {
+      return {
+        ...acc,
+        [key]: {
+          status: 'add',
+          beforeValue: value2,
+        },
       };
     }
-    if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && (value1 !== value2)) {
+
+    if (hasKeyInObj1 && hasKeyInObj2 && (value1 !== value2)) {
       if (typeof value1 === 'object' && typeof value2 === 'object') {
         acc[key] = {
           status: 'difObject',
@@ -45,7 +63,6 @@ const resultObjDif = (obj1, obj2) => {
     }
     return acc;
   }, {});
-  return result;
 };
 
 export default resultObjDif;
