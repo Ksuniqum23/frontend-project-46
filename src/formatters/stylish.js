@@ -1,18 +1,13 @@
 const printObj = (obj, iter = 1) => {
   const replacer = '    ';
   const beforeSymbol = replacer.repeat(iter);
-  let result = '';
-  Object.entries(obj || {}).forEach(([key, value]) => {
+
+  return Object.entries(obj || {}).map(([key, value]) => {
     if (value === null || typeof value !== 'object') {
-      result += `${beforeSymbol}${key}: ${value}\n`;
-    } else {
-      result += `${beforeSymbol}${key}: {\n`;
-      const newIter = iter + 1;
-      result += printObj(value, newIter);
-      result += `${beforeSymbol}}\n`;
+      return `${beforeSymbol}${key}: ${value}\n`;
     }
-  });
-  return result;
+    return `${beforeSymbol}${key}: {\n${printObj(value, iter + 1)}${beforeSymbol}}\n`;
+  }).join('');
 };
 
 const stylishIter = (key, value, iter = 1) => {
