@@ -8,9 +8,10 @@ const resultObjDif = (obj1, obj2) => {
   const obj1keys = getKeys(obj1);
   const obj2keys = getKeys(obj2);
 
-  const resultKeys = _.union(obj1keys, obj2keys).toSorted();
+  const resultKeys = _.union(obj1keys, obj2keys);
+  const sortedKeys = [...resultKeys].sort();
 
-  return resultKeys.reduce((acc, key) => {
+  return sortedKeys.reduce((acc, key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 
