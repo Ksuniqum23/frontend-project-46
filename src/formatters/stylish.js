@@ -10,12 +10,12 @@ const printObj = (obj, iter = 1) => {
   }).join('');
 };
 
-const stylishIter = (key, value, iter = 1) => {
+const stylishIter = (key, value, iter = 1, childContent = '') => {
   const replacer = '    ';
   const beforeSymbol = replacer.repeat(iter);
   const shortBeforeSymbol = beforeSymbol.slice(0, -2);
   const { status } = value;
-  const valueIsNoObject = (value) => value === null || typeof value !== 'object';
+  const valueIsNoObject = (v) => v === null || typeof v !== 'object';
 
   if (status === 'equal') {
     return valueIsNoObject(value.beforeValue)
@@ -30,7 +30,7 @@ const stylishIter = (key, value, iter = 1) => {
       ? `${shortBeforeSymbol}+ ${key}: ${value.beforeValue}\n`
       : `${shortBeforeSymbol}+ ${key}: {\n${printObj(value.beforeValue, iter + 1)}${beforeSymbol}}\n`;
   } if (status === 'different') {
-    const getPrefix = (key, sign) => `${shortBeforeSymbol}${sign} ${key}: `;
+    const getPrefix = (k, sign) => `${shortBeforeSymbol}${sign} ${k}: `;
     const before = valueIsNoObject(value.beforeValue)
       ? `${getPrefix(key, '-')}${value.beforeValue}\n`
       : `${getPrefix(key, '-')}{\n${printObj(value.beforeValue, iter + 1)}${beforeSymbol}}\n`;
@@ -39,17 +39,21 @@ const stylishIter = (key, value, iter = 1) => {
       : `${getPrefix(key, '+')}{\n${printObj(value.afterValue, iter + 1)}${beforeSymbol}}\n`;
     return `${before}${after}`;
   } if (status === 'difObject') {
-    return `${beforeSymbol}${key}: {\n${gotoKeys(value.children, iter + 1)}${beforeSymbol}}\n`;
+    return `${beforeSymbol}${key}: {\n${childContent}${beforeSymbol}}\n`;
   }
   return 'error';
 };
 
 const gotoKeys = (obj, iter = 1) => {
+  if (!obj) {
+    return '';
+  }
   const keys = Object.keys(obj);
   return keys.reduce(
     (acc, key) => {
       const value = obj[key];
-      return acc + stylishIter(key, value, iter);
+      const childContent = gotoKeys(value.children, iter + 1);
+      return acc + stylishIter(key, value, iter, childContent);
     },
     '',
   );
