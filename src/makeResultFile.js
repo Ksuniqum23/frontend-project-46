@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
-const checkProp = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+const checkProp = (obj, key) => _.has(obj, key);
 
 const resultObjDif = (obj1, obj2) => {
-  const getKeys = (obj) => (obj && Object.keys(obj).length > 0 ? Object.keys(obj) : []);
+  const getKeys = (obj) => (obj ? Object.keys(obj) : []);
 
   const obj1keys = getKeys(obj1);
   const obj2keys = getKeys(obj2);

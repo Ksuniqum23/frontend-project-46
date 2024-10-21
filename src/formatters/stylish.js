@@ -15,28 +15,21 @@ const stylishIter = (key, value, iter = 1, childContent = '') => {
   const beforeSymbol = replacer.repeat(iter);
   const shortBeforeSymbol = beforeSymbol.slice(0, -2);
   const { status } = value;
-  const valueIsNoObject = (v) => v === null || typeof v !== 'object';
-
+  const renderValue = (prefix, val, sign = '') => {
+    if (val === null || typeof val !== 'object') {
+      return `${prefix}${sign}${key}: ${val}\n`;
+    }
+    return `${prefix}${sign}${key}: {\n${printObj(val, iter + 1)}${beforeSymbol}}\n`;
+  };
   if (status === 'equal') {
-    return valueIsNoObject(value.beforeValue)
-      ? `${beforeSymbol}${key}: ${value.beforeValue}\n`
-      : `${beforeSymbol}${key}: {\n${printObj(value.beforeValue, iter + 1)}${beforeSymbol}}\n`;
+    return renderValue(beforeSymbol, value.beforeValue);
   } if (status === 'remove') {
-    return valueIsNoObject(value.beforeValue)
-      ? `${shortBeforeSymbol}- ${key}: ${value.beforeValue}\n`
-      : `${shortBeforeSymbol}- ${key}: {\n${printObj(value.beforeValue, iter + 1)}${beforeSymbol}}\n`;
+    return renderValue(shortBeforeSymbol, value.beforeValue, '- ');
   } if (status === 'add') {
-    return valueIsNoObject(value.beforeValue)
-      ? `${shortBeforeSymbol}+ ${key}: ${value.beforeValue}\n`
-      : `${shortBeforeSymbol}+ ${key}: {\n${printObj(value.beforeValue, iter + 1)}${beforeSymbol}}\n`;
+    return renderValue(shortBeforeSymbol, value.beforeValue, '+ ');
   } if (status === 'different') {
-    const getPrefix = (k, sign) => `${shortBeforeSymbol}${sign} ${k}: `;
-    const before = valueIsNoObject(value.beforeValue)
-      ? `${getPrefix(key, '-')}${value.beforeValue}\n`
-      : `${getPrefix(key, '-')}{\n${printObj(value.beforeValue, iter + 1)}${beforeSymbol}}\n`;
-    const after = valueIsNoObject(value.afterValue)
-      ? `${getPrefix(key, '+')}${value.afterValue}\n`
-      : `${getPrefix(key, '+')}{\n${printObj(value.afterValue, iter + 1)}${beforeSymbol}}\n`;
+    const before = renderValue(shortBeforeSymbol, value.beforeValue, '- ');
+    const after = renderValue(shortBeforeSymbol, value.afterValue, '+ ');
     return `${before}${after}`;
   } if (status === 'difObject') {
     return `${beforeSymbol}${key}: {\n${childContent}${beforeSymbol}}\n`;
