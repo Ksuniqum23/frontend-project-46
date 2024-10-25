@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const resultAst = (obj1, obj2) => {
+const buildAst = (obj1, obj2) => {
   const resultKeys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
   const result = resultKeys.map((key) => {
     const value1 = obj1[key];
@@ -36,7 +36,7 @@ const resultAst = (obj1, obj2) => {
         return {
           key,
           status: 'difObject',
-          children: resultAst(value1, value2),
+          children: buildAst(value1, value2),
         };
       }
       return {
@@ -51,4 +51,4 @@ const resultAst = (obj1, obj2) => {
   return result;
 };
 
-export default resultAst;
+export default buildAst;
