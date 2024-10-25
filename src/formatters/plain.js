@@ -46,5 +46,5 @@ const plain = (resultObj) => {
   const result = goToKeys(resultObj).replace(/\n$/, '');
   console.log(result);
   return result;
-}
+};
 export default plain;

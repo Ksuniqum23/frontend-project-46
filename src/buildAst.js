@@ -1,15 +1,7 @@
 import _ from 'lodash';
 
-const checkProp = (obj, key) => _.has(obj, key);
-
-const resultObjDif = (obj1, obj2) => {
-  const getKeys = (obj) => (obj ? Object.keys(obj) : []);
-
-  const obj1keys = getKeys(obj1);
-  const obj2keys = getKeys(obj2);
-
-  // eslint-disable-next-line fp/no-mutating-methods
-  const resultKeys = _.union(obj1keys, obj2keys).sort();
+const resultAst = (obj1, obj2) => {
+  const resultKeys = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
 
   return resultKeys.reduce((acc, key) => {
     const value1 = obj1[key];
@@ -25,8 +17,8 @@ const resultObjDif = (obj1, obj2) => {
       };
     }
 
-    const hasKeyInObj1 = checkProp(obj1, key);
-    const hasKeyInObj2 = checkProp(obj2, key);
+    const hasKeyInObj1 = _.has(obj1, key);
+    const hasKeyInObj2 = _.has(obj2, key);
 
     if (hasKeyInObj1 && !hasKeyInObj2) {
       return {
@@ -54,7 +46,7 @@ const resultObjDif = (obj1, obj2) => {
           ...acc,
           [key]: {
             status: 'difObject',
-            children: resultObjDif(value1, value2),
+            children: resultAst(value1, value2),
           },
         };
       }
@@ -71,4 +63,4 @@ const resultObjDif = (obj1, obj2) => {
   }, {});
 };
 
-export default resultObjDif;
+export default resultAst;
