@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const resultAst = (obj1, obj2) => {
   const resultKeys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
-  return resultKeys.map((key) => {
+  const result = resultKeys.map((key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
     if (_.isEqual(value1, value2)) {
@@ -46,7 +46,9 @@ const resultAst = (obj1, obj2) => {
         afterValue: value2,
       };
     }
+    return 'error';
   });
+  return result;
 };
 
 export default resultAst;
