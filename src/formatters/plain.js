@@ -27,23 +27,23 @@ const getAnswer = (status, beforeValue, afterValue) => {
 
 const resultResponse = (pathToKey, beforeValue, afterValue, status) => `Property '${pathToKey}' ${getAnswer(status, beforeValue, afterValue)}\n`;
 
-const goToKeys = (obj, path = '') => Object.keys(obj)
-  .filter((key) => obj[key].status !== 'equal')
-  .map((key) => {
-    const pathToKey = [path, key];
+const goToArr = (arr, path = '') => arr
+  .filter((item) => item.status !== 'equal')
+  .map((obj) => {
+    const pathToKey = [path, obj.key];
     const pathToKeyStr = pathToKey.join('.').trim().replace(/^\./, '');
 
-    if (obj[key].status === 'difObject') {
-      return goToKeys(obj[key].children, pathToKeyStr);
+    if (obj.status === 'difObject') {
+      return goToArr(obj.children, pathToKeyStr);
     }
-    const value1 = obj[key].beforeValue;
-    const value2 = obj[key].afterValue;
-    return resultResponse(pathToKeyStr, value1, value2, obj[key].status);
+    const value1 = obj.beforeValue;
+    const value2 = obj.afterValue;
+    return resultResponse(pathToKeyStr, value1, value2, obj.status);
   })
   .join('');
 
-const plain = (resultObj) => {
-  const result = goToKeys(resultObj).replace(/\n$/, '');
+const plain = (resultAst) => {
+  const result = goToArr(resultAst).replace(/\n$/, '');
   console.log(result);
   return result;
 };

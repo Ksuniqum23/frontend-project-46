@@ -1,81 +1,98 @@
-{
-  "common": {
+[
+  {
+    "key": "common",
     "status": "difObject",
-    "children": {
-      "follow": {
+    "children": [
+      {
+        "key": "follow",
         "status": "add",
         "beforeValue": false
       },
-      "setting1": {
+      {
+        "key": "setting1",
         "status": "equal",
         "beforeValue": "Value 1"
       },
-      "setting2": {
+      {
+        "key": "setting2",
         "status": "remove",
         "beforeValue": 200
       },
-      "setting3": {
+      {
+        "key": "setting3",
         "status": "different",
         "beforeValue": true,
         "afterValue": null
       },
-      "setting4": {
+      {
+        "key": "setting4",
         "status": "add",
         "beforeValue": "blah blah"
       },
-      "setting5": {
+      {
+        "key": "setting5",
         "status": "add",
         "beforeValue": {
           "key5": "value5"
         }
       },
-      "setting6": {
+      {
+        "key": "setting6",
         "status": "difObject",
-        "children": {
-          "doge": {
+        "children": [
+          {
+            "key": "doge",
             "status": "difObject",
-            "children": {
-              "wow": {
+            "children": [
+              {
+                "key": "wow",
                 "status": "different",
                 "beforeValue": "",
                 "afterValue": "so much"
               }
-            }
+            ]
           },
-          "key": {
+          {
+            "key": "key",
             "status": "equal",
             "beforeValue": "value"
           },
-          "ops": {
+          {
+            "key": "ops",
             "status": "add",
             "beforeValue": "vops"
           }
-        }
+        ]
       }
-    }
+    ]
   },
-  "group1": {
+  {
+    "key": "group1",
     "status": "difObject",
-    "children": {
-      "baz": {
+    "children": [
+      {
+        "key": "baz",
         "status": "different",
         "beforeValue": "bas",
         "afterValue": "bars"
       },
-      "foo": {
+      {
+        "key": "foo",
         "status": "equal",
         "beforeValue": "bar"
       },
-      "nest": {
+      {
+        "key": "nest",
         "status": "different",
         "beforeValue": {
           "key": "value"
         },
         "afterValue": "str"
       }
-    }
+    ]
   },
-  "group2": {
+  {
+    "key": "group2",
     "status": "remove",
     "beforeValue": {
       "abc": 12345,
@@ -84,7 +101,8 @@
       }
     }
   },
-  "group3": {
+  {
+    "key": "group3",
     "status": "add",
     "beforeValue": {
       "deep": {
@@ -95,4 +113,4 @@
       "fee": 100500
     }
   }
-}
+]
