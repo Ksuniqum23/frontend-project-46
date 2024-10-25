@@ -52,6 +52,10 @@ const gotoKeys = (obj, iter = 1) => {
   );
 };
 
-const stylish = (resultObj) => `{\n${gotoKeys(resultObj)}}`;
+const stylish = (resultObj) => {
+  const result = `{\n${gotoKeys(resultObj)}}`;
+  console.log(result);
+  return result;
+};
 
 export default stylish;

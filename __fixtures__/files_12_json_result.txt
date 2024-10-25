@@ -1,0 +1,98 @@
+{
+  "common": {
+    "status": "difObject",
+    "children": {
+      "follow": {
+        "status": "add",
+        "beforeValue": false
+      },
+      "setting1": {
+        "status": "equal",
+        "beforeValue": "Value 1"
+      },
+      "setting2": {
+        "status": "remove",
+        "beforeValue": 200
+      },
+      "setting3": {
+        "status": "different",
+        "beforeValue": true,
+        "afterValue": null
+      },
+      "setting4": {
+        "status": "add",
+        "beforeValue": "blah blah"
+      },
+      "setting5": {
+        "status": "add",
+        "beforeValue": {
+          "key5": "value5"
+        }
+      },
+      "setting6": {
+        "status": "difObject",
+        "children": {
+          "doge": {
+            "status": "difObject",
+            "children": {
+              "wow": {
+                "status": "different",
+                "beforeValue": "",
+                "afterValue": "so much"
+              }
+            }
+          },
+          "key": {
+            "status": "equal",
+            "beforeValue": "value"
+          },
+          "ops": {
+            "status": "add",
+            "beforeValue": "vops"
+          }
+        }
+      }
+    }
+  },
+  "group1": {
+    "status": "difObject",
+    "children": {
+      "baz": {
+        "status": "different",
+        "beforeValue": "bas",
+        "afterValue": "bars"
+      },
+      "foo": {
+        "status": "equal",
+        "beforeValue": "bar"
+      },
+      "nest": {
+        "status": "different",
+        "beforeValue": {
+          "key": "value"
+        },
+        "afterValue": "str"
+      }
+    }
+  },
+  "group2": {
+    "status": "remove",
+    "beforeValue": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    }
+  },
+  "group3": {
+    "status": "add",
+    "beforeValue": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    }
+  }
+}

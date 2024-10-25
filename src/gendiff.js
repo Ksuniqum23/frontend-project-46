@@ -15,9 +15,6 @@ const genDiff = (filePath1, filePath2, formatName = 'stylish') => {
   const data2 = getData(fullPath2);
   const diffFile = resultObjDif(data1, data2);
   const formatting = doFormatting(diffFile, formatName);
-  if (formatName !== 'json') {
-    console.log(formatting);
-  }
   return formatting;
 };
 export default genDiff;
