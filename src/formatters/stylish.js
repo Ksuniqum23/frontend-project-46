@@ -10,26 +10,29 @@ const printObj = (obj, iter = 1) => {
   }).join('');
 };
 
-const stylishIter = (key, value, iter = 1, childContent = '') => {
+const stylishIter = (obj, iter = 1, childContent) => {
   const replacer = '    ';
   const beforeSymbol = replacer.repeat(iter);
   const shortBeforeSymbol = beforeSymbol.slice(0, -2);
-  const { status } = value;
-  const renderValue = (prefix, val, sign = '') => {
-    if (val === null || typeof val !== 'object') {
-      return `${prefix}${sign}${key}: ${val}\n`;
+  const { status } = obj;
+  const { key } = obj;
+
+  const renderValue = (prefix, value, sign = '') => {
+    if (value === null || typeof value !== 'object') {
+      return `${prefix}${sign}${key}: ${value}\n`;
     }
-    return `${prefix}${sign}${key}: {\n${printObj(val, iter + 1)}${beforeSymbol}}\n`;
+    return `${prefix}${sign}${key}: {\n${printObj(value, iter + 1)}${beforeSymbol}}\n`;
   };
+
   if (status === 'equal') {
-    return renderValue(beforeSymbol, value.beforeValue);
+    return renderValue(beforeSymbol, obj.beforeValue);
   } if (status === 'remove') {
-    return renderValue(shortBeforeSymbol, value.beforeValue, '- ');
+    return renderValue(shortBeforeSymbol, obj.beforeValue, '- ');
   } if (status === 'add') {
-    return renderValue(shortBeforeSymbol, value.beforeValue, '+ ');
+    return renderValue(shortBeforeSymbol, obj.beforeValue, '+ ');
   } if (status === 'different') {
-    const before = renderValue(shortBeforeSymbol, value.beforeValue, '- ');
-    const after = renderValue(shortBeforeSymbol, value.afterValue, '+ ');
+    const before = renderValue(shortBeforeSymbol, obj.beforeValue, '- ');
+    const after = renderValue(shortBeforeSymbol, obj.afterValue, '+ ');
     return `${before}${after}`;
   } if (status === 'difObject') {
     return `${beforeSymbol}${key}: {\n${childContent}${beforeSymbol}}\n`;
@@ -37,23 +40,16 @@ const stylishIter = (key, value, iter = 1, childContent = '') => {
   return 'error';
 };
 
-const gotoKeys = (obj, iter = 1) => {
-  if (!obj) {
-    return '';
-  }
-  const keys = Object.keys(obj);
-  return keys.reduce(
-    (acc, key) => {
-      const value = obj[key];
-      const childContent = gotoKeys(value.children, iter + 1);
-      return acc + stylishIter(key, value, iter, childContent);
-    },
-    '',
-  );
-};
+const gotoArr = (arr, iter = 1) => arr.reduce(
+  (acc, obj) => {
+    const childContent = obj.children ? gotoArr(obj.children, iter + 1) : '';
+    return acc + stylishIter(obj, iter, childContent);
+  },
+  '',
+);
 
-const stylish = (resultObj) => {
-  const result = `{\n${gotoKeys(resultObj)}}`;
+const stylish = (resultAst) => {
+  const result = `{\n${gotoArr(resultAst)}}`;
   console.log(result);
   return result;
 };

@@ -2,15 +2,15 @@ import stylish from './stylish.js';
 import plain from './plain.js';
 import createJsonFile from './json.js';
 
-const doFormatting = (file, formatType) => {
+const doFormatting = (ast, formatType) => {
   if (formatType === 'stylish') {
-    return stylish(file);
+    return stylish(ast);
   }
   if (formatType === 'plain') {
-    return plain(file);
+    return plain(ast);
   }
   if (formatType === 'json') {
-    return createJsonFile(file);
+    return createJsonFile(ast);
   }
   return 'error';
 };
