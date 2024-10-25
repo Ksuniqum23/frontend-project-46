@@ -10,7 +10,7 @@ const printObj = (obj, iter = 1) => {
   }).join('');
 };
 
-const stylishIter = (obj, iter = 1, childContent) => {
+const stylishIter = (obj, childContent, iter = 1) => {
   const replacer = '    ';
   const beforeSymbol = replacer.repeat(iter);
   const shortBeforeSymbol = beforeSymbol.slice(0, -2);
@@ -43,7 +43,7 @@ const stylishIter = (obj, iter = 1, childContent) => {
 const gotoArr = (arr, iter = 1) => arr.reduce(
   (acc, obj) => {
     const childContent = obj.children ? gotoArr(obj.children, iter + 1) : '';
-    return acc + stylishIter(obj, iter, childContent);
+    return acc + stylishIter(obj, childContent, iter);
   },
   '',
 );
