@@ -15,6 +15,7 @@ const genDiff = (filePath1, filePath2, formatName = 'stylish') => {
   const data2 = getData(fullPath2);
   const ast = buildAst(data1, data2);
   const formatting = doFormatting(ast, formatName);
+  console.log(formatting);
   return formatting;
 };
 export default genDiff;

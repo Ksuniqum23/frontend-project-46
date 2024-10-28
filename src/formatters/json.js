@@ -1,11 +1,7 @@
-import * as fs from 'fs';
-
-const createJsonFile = (obj) => {
-  const jsonString = JSON.stringify(obj, null, 2);
-  const fileName = 'output.json';
-  console.log(jsonString);
-  fs.writeFileSync(fileName, jsonString);
-  return jsonString;
+const createJsonFile = (arr) => {
+  const result = JSON.stringify(arr, null, ' '.repeat(2));
+  // console.log(result)
+  return result;
 };
 
 export default createJsonFile;

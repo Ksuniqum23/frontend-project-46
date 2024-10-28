@@ -8,7 +8,6 @@ const stringify = (value) => {
   return value;
 };
 
-// eslint-disable-next-line fp/no-nil
 const getAnswer = (status, beforeValue, afterValue) => {
   switch (status) {
     case 'remove':
@@ -42,9 +41,6 @@ const goToArr = (arr, path = '') => arr
   })
   .join('');
 
-const plain = (resultAst) => {
-  const result = goToArr(resultAst).replace(/\n$/, '');
-  console.log(result);
-  return result;
-};
+const plain = (resultAst) => goToArr(resultAst).replace(/\n$/, '');
+
 export default plain;

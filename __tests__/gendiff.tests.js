@@ -35,17 +35,14 @@ test('test3 genDiff .json PLAIN formatter', () => {
 test('test4 genDiff JSON formatter', () => {
   const file1 = getFixture('file1.yml');
   const file2 = getFixture('file2.yml');
-  const outputFilePath = path.join(__dirname, '..', 'output.json');
   const response = gendiff(file1, file2, 'json');
-  const data = fs.readFileSync(outputFilePath, 'utf-8');
-  const fileContent = readFixtureFile('files_12_json_result.txt');
-  expect(data).toBe(fileContent);
-  expect(response).toBe(fileContent);
+  const expected = readFixtureFile('files_12_json_result.txt');
+  expect(response).toBe(expected);
 });
 
 test('test5 format error', () => {
   const file1 = getFixture('file1.yml');
   const file2 = getFixture('file2.yml');
   const response = gendiff(file1, file2, 'qwe123');
-  expect(response.trim()).toBe('error');
+  expect(response).toBe('error');
 });
