@@ -48,6 +48,6 @@ const gotoArr = (arr, iter = 1) => arr.reduce(
   '',
 );
 
-const stylish = (resultAst) => `{\n${gotoArr(resultAst)}}`;
+const buildStylish = (resultAst) => `{\n${gotoArr(resultAst)}}`;
 
-export default stylish;
+export default buildStylish;

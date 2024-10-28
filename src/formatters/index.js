@@ -1,16 +1,16 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
-import createJsonFile from './json.js';
+import buildStylish from './buildStylish.js';
+import buildPlain from './buildPlain.js';
+import buildJson from './buildJson.js';
 
 const doFormatting = (ast, formatType) => {
   if (formatType === 'stylish') {
-    return stylish(ast);
+    return buildStylish(ast);
   }
   if (formatType === 'plain') {
-    return plain(ast);
+    return buildPlain(ast);
   }
   if (formatType === 'json') {
-    return createJsonFile(ast);
+    return buildJson(ast);
   }
   return 'error';
 };

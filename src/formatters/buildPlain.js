@@ -41,6 +41,6 @@ const goToArr = (arr, path = '') => arr
   })
   .join('');
 
-const plain = (resultAst) => goToArr(resultAst).replace(/\n$/, '');
+const buildPlain = (resultAst) => goToArr(resultAst).replace(/\n$/, '');
 
-export default plain;
+export default buildPlain;
